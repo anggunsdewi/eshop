@@ -1,5 +1,5 @@
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
-A. Membuat sebuah proyek Django baru
+#### A. Membuat sebuah proyek Django baru
  - Membuat direktori baru pada komputer
  - Membuat repositori baru pada github
  - Menghubungkan direktori komputer dengan repositori di github
@@ -10,12 +10,12 @@ A. Membuat sebuah proyek Django baru
  - Membuat proyek django dengan perintah `django-admin startproject eshop .`
  - Memastikan bahwa berkas `manage.py` aktif dengan perintah `python manage.py runserver`
 
-B. Membuat aplikasi dengan nama main pada proyek
+#### B. Membuat aplikasi dengan nama main pada proyek
  - Menjalankan perintah `python manage.py startapp main`
  untuk membuat aplikasi baru dengan nama main
  - Mendaftarkan aplikasi main ke dalam proyek dengan menambahkan `'main'` ke dalam variabel INSTALLED_APPS yang ada pada `settings.py` di dalam direktori proyek eshop
 
-C. Melakukan routing pada proyek agar dapat menjalankan aplikasi main
+#### C. Melakukan routing pada proyek agar dapat menjalankan aplikasi main
  - Melakukan konfigurasi routing URL dengan membuat berkas `urls.py` di dalam direktori main, kemudian menambahkan perintah dalam urls.py dalam direktori main yang berisi:
     ```
     from django.urls import path
@@ -34,8 +34,9 @@ C. Melakukan routing pada proyek agar dapat menjalankan aplikasi main
     ]
     ```
 
-D. Membuat model pada aplikasi main dengan berkas models.py dan menambahkan perintah:
-```
+#### D. Membuat model pada aplikasi main dengan berkas models.py dan menambahkan perintah:
+ - Menambahkan perintah mada berkas models.py dengan:
+    ```
     from django.db import models
     class Product(models.Model):
         name = models.CharField(max_length=255)
@@ -51,9 +52,9 @@ D. Membuat model pada aplikasi main dengan berkas models.py dan menambahkan peri
         
         def is_good(self):
         return self.rating>3
-```
+    ```
 
-E. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML
+#### E. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML
  - Membuat sebuah fungsi pada models.py yang berisi perintah:
     ```
     from django.shortcuts import render
@@ -68,8 +69,9 @@ E. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah templa
     return render(request, "main.html", context)
     ```
 
-F. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py
-```
+#### F. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py
+ - Menambahkan perintah pada berkas urls.py pada direktori main yang berisi:
+    ```
     from django.urls import path
     from main.views import show_main
 
@@ -78,9 +80,9 @@ F. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang
     urlpatterns = [
         path('', show_main, name='show_main'),
     ]
-```
+    ```
 
-G. Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat
+#### G. Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat
  - Membuat proyek baru dengan menekan tombol `Create New Project`
  - Pada berkas `settings.py`, menambahkan URL PWS pribadi ke dalam ALLOWED_HOSTS
  - Menjalankan perintah `git branch -M main`
@@ -90,7 +92,12 @@ G. Melakukan deployment ke PWS terhadap aplikasi yang sudah dibuat
 
 ### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 ![alt text](<Client Request-1.png>)
-
+Alur program:
+- Klien mengirimkan permintaan ke Django.
+- Django memeriksa urls.py untuk menentukan view mana yang harus memproses permintaan tersebut.
+- View di views.py memproses permintaan dengan melibatkan interaksi dengan model di models.py.
+- View kemudian menggunakan template HTML untuk merender halaman web.
+- Django mengirimkan respons dalam bentuk halaman HTML ke klien melalui internet.
 
 
 ### Jelaskan fungsi git dalam pengembangan perangkat lunak!
