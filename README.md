@@ -93,11 +93,11 @@
 ### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 ![alt text](<Client Request-1.png>)
 Alur program:
-- Klien mengirimkan permintaan ke Django.
-- Django memeriksa urls.py untuk menentukan view mana yang harus memproses permintaan tersebut.
-- View di views.py memproses permintaan dengan melibatkan interaksi dengan model di models.py.
-- View kemudian menggunakan template HTML untuk merender halaman web.
-- Django mengirimkan respons dalam bentuk halaman HTML ke klien melalui internet.
+- Klien mengirimkan permintaan ke Django melalui internet
+- Django memeriksa urls.py untuk menentukan view mana yang harus memproses permintaan tersebut
+- View di views.py memproses permintaan dengan melibatkan interaksi dengan model di models.py
+- View kemudian menggunakan template HTML untuk merender halaman web
+- Django mengirimkan respons dalam bentuk halaman HTML ke klien melalui internet
 
 
 ### Jelaskan fungsi git dalam pengembangan perangkat lunak!
