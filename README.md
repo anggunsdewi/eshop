@@ -1,3 +1,9 @@
+Nama : Anggun Sasmitha Dewi 
+NPM : 2306165673 
+Kelas : PBP A
+
+Tautan PWS: http://anggun-sasmitha-eshoppbp.pbp.cs.ui.ac.id/
+
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
 #### A. Membuat sebuah proyek Django baru
  - Membuat direktori baru pada komputer
@@ -91,11 +97,11 @@
 
 
 ### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
-![alt text](<Client Request-1.png>)
+![alt text](image.png)
 Alur program:
-- Klien mengirimkan permintaan ke Django melalui internet
+- Klien mengirimkan permintaan melalui internet dan diterima oleh urls.py
 - Django memeriksa urls.py untuk menentukan view mana yang harus memproses permintaan tersebut
-- View di views.py memproses permintaan dengan melibatkan interaksi dengan model di models.py
+- View di views.py memproses permintaan dengan membaca atau menulis data melalui model di models.py
 - View kemudian menggunakan template HTML untuk merender halaman web
 - Django mengirimkan respons dalam bentuk halaman HTML ke klien melalui internet
 
