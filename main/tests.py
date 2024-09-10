@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.utils import timezone
-from .models import MoodEntry
+from .models import Product
 
 class mainTest(TestCase):
     def test_main_url_is_exist(self):
@@ -15,12 +15,12 @@ class mainTest(TestCase):
         response = Client().get('/skibidi/')
         self.assertEqual(response.status_code, 404)
 
-    # def test_strong_mood_user(self):
-    #     now = timezone.now()
-    #     mood = MoodEntry.objects.create(
-    #       mood="LUMAYAN SENANG",
-    #       time = now,
-    #       feelings = "senang sih, cuman tadi baju aku basah kena hujan :(",
-    #       mood_intensity = 8,
-    #     )
-    #     self.assertTrue(mood.is_mood_strong)
+    def test_is_stock_available(self):
+        product = Product.objects.create(
+          name = "Akua",
+          price = "4000",
+          description = "Air minum dalam botol plastik sebesar 600ml",
+          stock = "10",
+          rating = "4.5"
+        )
+        self.assertTrue(product.is_available)

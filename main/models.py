@@ -5,12 +5,13 @@ class Product(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     stock = models.IntegerField()
+    rating = models.FloatField()
 
-    def is_available(self):
-        return self.stock > 5
-    
     def name_of_product(self):
         return self.name
     
+    def is_available(self):
+        return self.stock > 0
+    
     def is_good(self):
-        return self.rating>3
+        return self.rating > 3
