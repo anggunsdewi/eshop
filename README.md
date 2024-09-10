@@ -49,30 +49,35 @@ Tautan PWS: http://anggun-sasmitha-eshoppbp.pbp.cs.ui.ac.id/
         price = models.IntegerField()
         description = models.TextField()
         stock = models.IntegerField()
+        rating = models.FloatField()
 
-        def is_available(self):
-            return self.stock > 5
-        
         def name_of_product(self):
             return self.name
         
+        def is_available(self):
+            return self.stock > 0
+        
         def is_good(self):
-        return self.rating>3
+            return self.rating > 3
     ```
 
 #### E. Membuat sebuah fungsi pada views.py untuk dikembalikan ke dalam sebuah template HTML
- - Membuat sebuah fungsi pada models.py yang berisi perintah:
+ - Membuat sebuah fungsi pada views.py yang berisi perintah:
     ```
     from django.shortcuts import render
+    from .models import Product
+
+    # Create your views here.
     def show_main(request):
-    context = {
-        'name' : 'Air Mineral Akua',
-        'price': '4000',
-        'description': 'Air minum dalam botol plastik sebesar 600ml',
-        'stock': '10',
-        'rating': '4.2'
-    }
-    return render(request, "main.html", context)
+        context = {
+            'name' : 'Moisturizer COSRX',
+            'price': '200000',
+            'description': 'COSRX OIL FREE Ultra Moisturizing Lotion (with Birch Sap) merupakan pelembab all-in-one. Lotion yang cocok untuk semua jenis kulit, termasuk kulit sensitive',
+            'stock': '10',
+            'rating': '4.3',
+        }
+
+        return render(request, "main.html", context)
     ```
 
 #### F. Membuat sebuah routing pada urls.py aplikasi main untuk memetakan fungsi yang telah dibuat pada views.py
