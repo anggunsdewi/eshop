@@ -45,6 +45,8 @@ Tautan PWS: http://anggun-sasmitha-eshoppbp.pbp.cs.ui.ac.id/
     ```
     from django.db import models
     class Product(models.Model):
+        by = models.CharField(max_length=255)
+        kelas = models.CharField(max_length=255)
         name = models.CharField(max_length=255)
         price = models.IntegerField()
         description = models.TextField()
@@ -67,9 +69,10 @@ Tautan PWS: http://anggun-sasmitha-eshoppbp.pbp.cs.ui.ac.id/
     from django.shortcuts import render
     from .models import Product
 
-    # Create your views here.
     def show_main(request):
         context = {
+            'by' : 'Anggun Sasmitha Dewi',
+            'kelas' : 'PBP A',
             'name' : 'Moisturizer COSRX',
             'price': '200000',
             'description': 'COSRX OIL FREE Ultra Moisturizing Lotion (with Birch Sap) merupakan pelembab all-in-one. Lotion yang cocok untuk semua jenis kulit, termasuk kulit sensitive',
