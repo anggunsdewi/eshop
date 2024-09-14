@@ -1,8 +1,7 @@
+import uuid
 from django.db import models
 
 class Product(models.Model):
-    by = models.CharField(max_length=255)
-    kelas = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     price = models.IntegerField()
     description = models.TextField()
