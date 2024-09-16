@@ -1,12 +1,14 @@
-Nama : Anggun Sasmitha Dewi 
-NPM : 2306165673 
-Kelas : PBP A
+**Nama   : Anggun Sasmitha Dewi**
 
-Tautan PWS: http://anggun-sasmitha-eshoppbp.pbp.cs.ui.ac.id/
+**NPM    : 2306165673** 
+
+**Kelas  : PBP A**
+
+# 🔗[Link to Fresh and Bloom!🌿](http://anggun-sasmitha-eshoppbp.pbp.cs.ui.ac.id/)
 
 
 <details>
-    <summary>Tugas 2 PBP</summary>
+    <summary><strong>📘Tugas 2 PBP</strong></summary>
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
 #### A. Membuat sebuah proyek Django baru
@@ -107,7 +109,6 @@ Tautan PWS: http://anggun-sasmitha-eshoppbp.pbp.cs.ui.ac.id/
  - Menjalankan perintah `git push pws main:master` untuk selanjutnya
 
 
-
 ### Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 ![alt text](image.png)
 Alur program:
@@ -130,26 +131,130 @@ Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena berfung
 </details>
 
 <details>
-    <summary>Tugas 3 PBP</summary>
+    <summary><strong>📘Tugas 3 PBP</strong></summary>
 
 ### Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
-Kita memerlukan data delivery dalam pengimplementasian sebuah platform karena data delivery membantu developer dalam mengirimkan data secara cepat dan efisien. Data delivery juga memastikan bahwa data yang berada pada aplikasi frontend, server, maupun database tetap sinkron. Pada tugas kali ini, kita membutuhkan data delivery karena e-commerce membutuhkan pengiriman data secara cepat dan tepat waktu agar pengguna dapat berinteraksi dengan platform tanpa adanya delay.
+Kita memerlukan data delivery dalam pengimplementasian sebuah platform karena data delivery membantu developer dalam mengirimkan data secara cepat dan efisien. Data delivery juga memastikan bahwa data yang berada pada aplikasi frontend, server, maupun database tetap sinkron. Pada tugas kali ini, kita membutuhkan data delivery karena e-commerce membutuhkan pengiriman data secara cepat dan tepat waktu agar pengguna dapat berinteraksi dengan platform secara real-time tanpa adanya delay.
 
 ### Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
-Menurut saya, lebih baik JSON dalam data delivery. Struktur JSON dibuat sederhana, mirip seperti struktur dictionary pada Python. Pembacaan JSON lebih mudah dilakukan dibanding XML yang mengharuskan adanya elemen-elemen dengan tag pembuka dan penutup (seperti HTML). Selain itu, JSON dirancang untuk berfungsi langsung dengan JavaScript, di mana JavaScript dapat langsung memproses dan mengubah JSON menjadi objek tanpa memerlukan parsing yang kompleks. 
-Hal itulah yang menurut saya menjadi alasan juga mengapa JSON lebih populer dibanding XML. JSON lebih mudah dibaca karena formatnya lebih ringkas (tidak memerlukan tag pembuka dan penutup seperti XML). Selain itu, kode untuk membaca dan membuat JSON dapat ditulis dalam bahasa pemrograman apapun. 
+Sebelum masuk ke jawaban, saya akan menjelaskan perbedaan antara JSON dan XML terlebih dahulu. Dilansir dari aws.amazon.com, perbedaan keduanya dapat dilihat pada tabel berikut:
+| **Keterangan**          | **JSON**                                                                 | **XML**                                                                                     |
+|------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| **Format**              | Menggunakan struktur mirip peta dengan pasangan key-value.                     | Menyimpan data dalam struktur pohon dengan namespace untuk kategori data yang berbeda.           |
+| **Syntax**              | Sintaks JSON lebih ringkas dan lebih mudah dibaca dan ditulis.        | Sintaks XML menggantikan beberapa karakter dengan referensi entitas, menjadikannya lebih verbose. |
+| **Parsing**             | Dapat parsing JSON dengan JSON dengan fungsi JavaScript standar.                 | Perlu parsing menggunakan parser XML.                                                   |
+| **Dokumentasi**| Ssederhana dan lebih fleksibel.                                       | Kompleks dan kurang fleksibel.                                                           |
+| **Tipe Data**          | Mendukung angka, objek, string, dan array Boolean.            | Mendukung semua tipe data JSON dan tipe tambahan seperti Boolean, tanggal, gambar, dan namespace. |
+| **Kemudahan Penggunaan**         | Memiliki ukuran file yang lebih kecil dan transmisi data yang lebih cepat.               | Struktur tag XML lebih kompleks untuk ditulis dan dibaca, serta menghasilkan file yang lebih besar.              |
+| **Keamanan**            | Lebih aman dibanding XML.                                                 | Harus mematikan DTD ketika bekerja dengan XML untuk mengurangi risiko kurangnya keamanan.          |
+
+Dari tabel tersebut, dapat disimpulkan bahwa JSON ebih baik dalam data delivery. Struktur JSON dibuat sederhana, mirip seperti struktur dictionary pada Python yang memiliki pasangan key-value. Pembacaan JSON lebih mudah dilakukan dibanding XML yang mengharuskan adanya elemen-elemen dengan tag pembuka dan penutup (seperti HTML). Selain itu, JSON dirancang untuk berfungsi langsung dengan JavaScript, di mana JavaScript dapat langsung memproses dan mengubah JSON menjadi objek tanpa memerlukan parsing yang kompleks. 
+Hal itulah yang menurut saya menjadi alasan juga mengapa JSON lebih populer dibanding XML. JSON lebih mudah dibaca karena formatnya lebih ringkas (tidak memerlukan tag pembuka dan penutup seperti XML). Oleh karena itu, JSON sering digunakan karena memiliki banyak keuntungan yang memudahkan para developer untuk mengembangkan suatu web modern.
 
 ### Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
 Fungsi dari method is_valid() pada form Django adalah untuk melakukan validasi terhadap data yang dikirimkan oleh user melalui form. Method ini memeriksa apakah data yang dimasukkan oleh user sesuai dengan aturan yang ditentukan dalam form tersebut, seperti jenis data, panjang teks, atau format tertentu. Method ini akan mengembalikan nilai True apabila data yang dimasukkan oleh user sudah valid dengan ketentuan, dan mengembalikan False apabila tidak valid. 
 
 ### Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
-Kita membutuhkan csrf_token (Cross-Site Request Forgery token) saat membuat form di Django untuk melindungi web dari serangan CSRF, di mana penyerang mencoba membuat pengguna tanpa disadari melakukan permintaan tidak sah ke server. 
+Kita membutuhkan csrf_token (Cross-Site Request Forgery token) saat membuat form di Django untuk melindungi web dari serangan CSRF, yaitu ketika penyerang mencoba membuat pengguna tanpa disadari melakukan permintaan tidak sah ke server. 
 Setiap kali sebuah form di-submit, Django memeriksa apakah ada csrf_token yang valid dan cocok dengan token yang telah di-authorize pengguna. Jika kita tidak menambahkan csrf_token dalam form Django, web menjadi rentan terhadap serangan CSRF. Dalam serangan ini, penyerang dapat memanipulasi user dengan mengirimkan request palsu ke server dari situs web yang telah di-authorize oleh user. 
 Dengan dikirimkannya request palsu, penyerang dapat memanfaatkan kesempatan ini untuk mengeksekusi tindakan yang tidak diinginkan user, seperti mengubah atau menghapus data. Selain itu, penyerang dapat mengirim permintaan ke server dengan kredensial user tanpa sepengetahuan oleh user. 
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
- - Membuat berkas baru pada direktori 'main' dengan nama forms.py
- - Menambahkan kode pada berkas forms.py yang berisi:
+ - Membuat berkas baru dengan nama `base.html` yang berada pada folder baru bernama `templates` yang ditaruh pada direktori utama.
+ - Menambahkan perintah berikut pada `base.html`:
+    ```
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% block meta %} {% endblock meta %}
+    </head>
+
+    <body>
+        {% block content %} {% endblock content %}
+    </body>
+    </html>
+    ```
+ - Membuka settings.py dan menambahkan perintah berikut pada baris `TEMPLATES`  `:
+    ```
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [BASE_DIR / 'templates'], # Tambahkan konten baris ini
+            'APP_DIRS': True,
+            ...
+        }
+    ]
+    ```
+ - Mengubah isi dari berkas `main.html` menjadi:
+    ```
+    {% extends 'base.html' %}
+    {% block content %}
+    <h1>Shop at Fresh n Bloom</h1>
+
+    {% if not product_entries %}
+    <p>Belum ada data product pada Fresh n Bloom.</p>
+    {% else %}
+    <table>
+    <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Stock</th>
+        <th>Rating</th>
+    </tr>
+
+    {% comment %} Berikut cara memperlihatkan data product di bawah baris ini 
+    {% endcomment %} 
+    {% for product_entry in product_entries %}
+    <tr>
+        <td>{{product_entry.name}}</td>
+        <td>{{product_entry.price}}</td>
+        <td>{{product_entry.description}}</td>
+        <td>{{product_entry.stock}}</td>
+        <td>{{product_entry.rating}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+
+    <br />
+
+    <a href="{% url 'main:create_product' %}">
+    <button>Add New Product</button>
+    </a>
+    {% endblock content %}
+    ```
+ - Menambahkan potongan kode berikut pada berkas `models.py`
+    ```
+    import uuid
+    from django.db import models
+
+    class Product(models.Model):
+        name = models.CharField(max_length=255)
+        price = models.IntegerField()
+        description = models.TextField()
+        stock = models.IntegerField()
+        rating = models.FloatField()
+
+        def name_of_product(self):
+            return self.name
+        
+        def is_available(self):
+            return self.stock > 0
+        
+        def is_good(self):
+            return self.rating > 3
+    ```
+ - Melakukan migrasi model dengan perintah:
+    ```
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+ - Membuat berkas baru pada direktori `main` dengan nama `forms.py`
+ - Menambahkan kode pada berkas `forms.py` yang berisi:
     ```
     from django.forms import ModelForm
     from main.models import Product
@@ -159,7 +264,7 @@ Dengan dikirimkannya request palsu, penyerang dapat memanfaatkan kesempatan ini 
             model = Product
             fields = ["name", "price", "description", "stock", "rating"]
     ```
- - Membuka berkas views.py yang ada dalam direktori main dan menambahkan kode:
+ - Membuka berkas `views.py` yang ada dalam direktori main dan menambahkan kode:
     ```
     from django.shortcuts import render, redirect
     from main.models import Product
@@ -216,7 +321,7 @@ Dengan dikirimkannya request palsu, penyerang dapat memanfaatkan kesempatan ini 
         path('json/<str:id>/', show_json_by_id, name='show_json_by_id'),
     ]
     ```
-- Membuat berkas HTML baru dengan nama create_product.html dan menambahkan kode:
+- Membuat berkas HTML baru dengan nama `create_product.html` dan menambahkan kode:
     ```
     {% extends 'base.html' %} 
     {% block content %}
@@ -238,7 +343,7 @@ Dengan dikirimkannya request palsu, penyerang dapat memanfaatkan kesempatan ini 
     {% endblock %}
     ```
 
-- Menambahkan kode pada berkas main.py yang berisi:
+- Menambahkan kode pada berkas `main.py` yang berisi:
     ```
     {% extends 'base.html' %}
     {% block content %}
@@ -278,4 +383,16 @@ Dengan dikirimkannya request palsu, penyerang dapat memanfaatkan kesempatan ini 
     {% endblock content %}
     ```
 
+### Screenshot hasil Postman
+ - XML
+ ![alt text](image-1.png)
+ - JSON
+ ![alt text](image-4.png)
+ - XML by ID
+ ![alt text](image-2.png)
+ - JSON by ID
+ ![alt text](image-3.png)
+
+## Referensi
+Amazon Web Services. (n.d.). The difference between JSON and XML. Amazon Web Services. Retrieved September 16, 2024, from https://aws.amazon.com/compare/the-difference-between-json-xml/#:~:text=JSON%20is%20generally%20a%20better,structures%20that%20require%20data%20exchange.
 </details>
