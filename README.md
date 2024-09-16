@@ -233,6 +233,7 @@ Dengan dikirimkannya request palsu, penyerang dapat memanfaatkan kesempatan ini 
     from django.db import models
 
     class Product(models.Model):
+        id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
         name = models.CharField(max_length=255)
         price = models.IntegerField()
         description = models.TextField()
@@ -385,13 +386,13 @@ Dengan dikirimkannya request palsu, penyerang dapat memanfaatkan kesempatan ini 
 
 ### Screenshot hasil Postman
  - XML
- ![alt text](image-1.png)
+ ![alt text](image-5.png)
  - JSON
- ![alt text](image-4.png)
- - XML by ID
- ![alt text](image-2.png)
- - JSON by ID
  ![alt text](image-3.png)
+ - XML by ID
+ ![alt text](image-1.png)
+ - JSON by ID
+ ![alt text](image-2.png)
 
 ## Referensi
 Amazon Web Services. (n.d.). The difference between JSON and XML. Amazon Web Services. Retrieved September 16, 2024, from https://aws.amazon.com/compare/the-difference-between-json-xml/#:~:text=JSON%20is%20generally%20a%20better,structures%20that%20require%20data%20exchange.

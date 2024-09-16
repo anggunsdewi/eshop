@@ -4,13 +4,10 @@ from main.forms import ProductForm
 from django.http import HttpResponse
 from django.core import serializers
 
-# Create your views here.
 def show_main(request):
     product_entries = Product.objects.all()
     
     context = {
-        'by' : 'Anggun Sasmitha Dewi',
-        'kelas' : 'PBP A',
         'product_entries' : product_entries
     }
 
