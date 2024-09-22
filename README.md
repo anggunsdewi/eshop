@@ -576,14 +576,28 @@ def show_main(request):
 ```
 
 B. Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.
+- Akun pertama
+![alt text](image-4.png)
+![alt text](image-6.png)
 
+- Akun kedua
+![alt text](image-7.png)
+![alt text](image-8.png)
+
+- Akun ketiga
+![alt text](image-11.png)
+![alt text](image-10.png)
 
 
 C. Menghubungkan model Product dengan User.
 - Menggunakan `ForeignKey` yang ditambahkan pada berkas `models.py` dengan perintah:
 ```
+...
+from django.contrib.auth.models import User
+...
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+...
 ```
 Setelah itu, pada `views.py`, ditambahkan perintah:
 ```
@@ -599,12 +613,11 @@ def create_product(request):
     context = {'form': form}
     return render(request, "create_product.html", context)
 ```
-Parameter `commit=False` yang digunakan pada potongan kode  berguna untuk mencegah Django agar tidak langsung menyimpan objek yang telah dibuat dari form langsung ke database. Hal tersebut memungkinkan modifikasi terlebih dahulu objek tersebut sebelum disimpan ke database. Pada kasus ini, kita akan mengisi field user dengan objek User dari return value request.user yang sedang terotorisasi untuk menandakan bahwa objek tersebut dimiliki oleh pengguna yang sedang login.
-
 Kemudian, mengubah value dari `product_entries` dan `context` pada fungsi show_main menjadi:
 ```
-product_entries = Product.objects.filter(user=request.user)
-    
+def show_main(request):
+    product_entries = Product.objects.filter(user=request.user)
+        
     context = {
         'name': request.user.username,
         'product_entries' : product_entries,
@@ -613,42 +626,71 @@ product_entries = Product.objects.filter(user=request.user)
 
     return render(request, "main.html", context)
 ```
-Potongan kode tersebut berfungsi untuk menampilkan objek Product yang terasosiasikan dengan pengguna yang sedang `login`. Hal tersebut dilakukan dengan menyaring seluruh objek dengan hanya mengambil Product di mana field user terisi dengan objek User yang sama dengan pengguna yang sedang login.
-
+- Melakukan migrasi model dengan perintah `python manage.py makemigrations` dan `python manage.py migrate`
 
 D. Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi.
-- Menambahkan perintah berikut pada fungsi `login_user`
+- Menambahkan potongan kode berikut pada berkas `views.py`
 ```
-if form.is_valid():
-    user = form.get_user()
-    login(request, user)
-    response = HttpResponseRedirect(reverse("main:show_main"))
-    response.set_cookie('last_login', str(datetime.datetime.now()))
-    return response
-```
-- Menambahkan perintah `'last_login': request.COOKIES.get('last_login')` berikut pada fungsi `show_main`
-```
-context = {
-    'name': 'Pak Bepe',
-    'class': 'PBP D',
-    'npm': '2306123456',
-    'mood_entries': mood_entries,
-    'last_login': request.COOKIES.get('last_login'),
-}
-```
-- Menambahkan perintah berikut pada fungsi `logout_user`
-```
+import datetime
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+...
+def show_main(request):
+    product_entries = Product.objects.filter(user=request.user)
+    
+    context = {
+        'name': request.user.username,
+        'product_entries' : product_entries,
+        'last_login': request.COOKIES.get('last_login'),
+    }
+
+    return render(request, "main.html", context)
+...
+def login_user(request):
+    if request.method == 'POST':
+      form = AuthenticationForm(data=request.POST)
+
+    if form.is_valid():
+        user = form.get_user()
+        login(request, user)
+        response = HttpResponseRedirect(reverse("main:show_main"))
+        response.set_cookie('last_login', str(datetime.datetime.now()))
+        return response
 def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+...
+```
+- Menambahkan potongan kode berikut pada berkas `main.html`:
+```
+...
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+...
 ```
 
-
 ## Referensi
-Stack Overflow. (2012, November 9). What is the difference between using django redirect and httpresponseredirect? Stack Overflow. https://stackoverflow.com/questions/13304149/what-the-difference-between-using-django-redirect-and-httpresponseredirect
+Binus University. (2017, Mei 2). Apa itu AAA (authentication, authorization, accounting)? Sistem Informasi Binus. https://sis.binus.ac.id/2017/05/02/apa-itu-aaa-authentication-authorization-accounting/
+
+Django Project. (n.d.). Authentication in Django. Django Documentation. https://docs.djangoproject.com/en/5.1/topics/auth/default/
+
+Django Project. (n.d.). User authentication in Django. Django Documentation. https://docs.djangoproject.com/en/5.1/topics/auth/
+
+Microsoft. (n.d.). Authentication vs authorization. Microsoft Learn. https://learn.microsoft.com/id-id/entra/identity-platform/authentication-vs-authorization
+
+Microsoft. (n.d.). Security in minimal APIs. Microsoft Learn. https://learn.microsoft.com/id-id/aspnet/core/fundamentals/minimal-apis/security?view=aspnetcore-8.0
+
+Nandazmann. (2020, Mei 22). Authentication dan authorization. Medium. https://medium.com/@nandazmann/authentication-dan-authorization-5ef8eb06d1c2
+
+OneLogin. (n.d.). Authentication vs authorization: What is the difference? OneLogin. https://www.onelogin.com/learn/authentication-vs-authorization
+
+Prasetiiio, F. (2020, September 6). Authentication dan authorization. Medium. https://medium.com/@fahmiprasetiiio/authentication-dan-authorization-afa2029ff876
 
 Ruang Developer. (2022, Oktober 15). Perbedaan antara authentication dan authorization. Ruang Developer. https://blog.ruangdeveloper.com/perbedaan-antara-authentication-dan-authorization/
+
+Stack Overflow. (2012, November 9). What is the difference between using django redirect and httpresponseredirect? Stack Overflow. https://stackoverflow.com/questions/13304149/what-the-difference-between-using-django-redirect-and-httpresponseredirect
+
+Sucuri. (2023, Januari 18). What are cookies? A short guide to managing your online privacy. Sucuri Blog. https://blog.sucuri.net/2023/01/what-are-cookies-a-short-guide-to-managing-your-online-privacy.html
 
 </details>
