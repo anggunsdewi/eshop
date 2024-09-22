@@ -446,83 +446,83 @@ Dilansir dari blog.sucuri.net, penggunaan cookies relatif aman digunakan. Data d
 A. Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna untuk mengakses aplikasi sebelumnya dengan lancar.
 - Mengaktifkan virtual environment
 - Menambahkan beberapa impor dan fungsi pada `views.py` yang dapat dilihat pada kode berikut:
-```
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-...
-def register(request):
-    form = UserCreationForm()
+    ```
+    from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+    from django.contrib import messages
+    from django.contrib.auth import authenticate, login, logout
+    from django.contrib.auth.decorators import login_required
+    ...
+    def register(request):
+        form = UserCreationForm()
 
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        if request.method == "POST":
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Your account has been successfully created!')
+                return redirect('main:login')
+        context = {'form':form}
+        return render(request, 'register.html', context)
+
+    def login_user(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Your account has been successfully created!')
-            return redirect('main:login')
-    context = {'form':form}
-    return render(request, 'register.html', context)
+            user = form.get_user()
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main"))
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
 
-def login_user(request):
-   if request.method == 'POST':
-      form = AuthenticationForm(data=request.POST)
+    else:
+        form = AuthenticationForm(request)
+    context = {'form': form}
+    return render(request, 'login.html', context)
 
-      if form.is_valid():
-           user = form.get_user()
-           login(request, user)
-           response = HttpResponseRedirect(reverse("main:show_main"))
-           response.set_cookie('last_login', str(datetime.datetime.now()))
-           return response
-
-   else:
-      form = AuthenticationForm(request)
-   context = {'form': form}
-   return render(request, 'login.html', context)
-
-def logout_user(request):
-    logout(request)
-    response = HttpResponseRedirect(reverse('main:login'))
-    response.delete_cookie('last_login')
-    return response
-```
+    def logout_user(request):
+        logout(request)
+        response = HttpResponseRedirect(reverse('main:login'))
+        response.delete_cookie('last_login')
+        return response
+    ```
 - Membuat berkas `register.html` yang berisi:
-```
-{% extends 'base.html' %}
+    ```
+    {% extends 'base.html' %}
 
-{% block meta %}
-<title>Register</title>
-{% endblock meta %}
+    {% block meta %}
+    <title>Register</title>
+    {% endblock meta %}
 
-{% block content %}
+    {% block content %}
 
-<div class="login">
-  <h1>Register</h1>
+    <div class="login">
+    <h1>Register</h1>
 
-  <form method="POST">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input type="submit" name="submit" value="Daftar" /></td>
-      </tr>
-    </table>
-  </form>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        <tr>
+            <td></td>
+            <td><input type="submit" name="submit" value="Daftar" /></td>
+        </tr>
+        </table>
+    </form>
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-</div>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    </div>
 
-{% endblock content %}
-```
+    {% endblock content %}
+    ```
 - Membuat berkas `login.html` yang berisi:
-```
+    ```
     {% extends 'base.html' %}
 
     {% block meta %}
@@ -555,15 +555,15 @@ def logout_user(request):
     </div>
 
     {% endblock content %}
-```
+    ```
 - Menambahkan button `Logout` pada `main.html` dengan kode:
-```
-    <a href="{% url 'main:logout' %}">
-    <button>Logout</button>
-    </a>
-```
+    ```
+        <a href="{% url 'main:logout' %}">
+        <button>Logout</button>
+        </a>
+    ```
 - Menambahkan path url register, login, dan logout pada `urlpatterns` yang ada pada direktori `urls.py` dengan kode:
-```
+    ```
     from main.views import register, login_user, logout_user
     ...
     urlpatterns = [
@@ -573,14 +573,14 @@ def logout_user(request):
         path('logout/', logout_user, name='logout'),
     ]
     ```
-    - Merestriksi akses halaman dengan menambahkan potongan kode pada `views.py` dengan:
+- Merestriksi akses halaman dengan menambahkan potongan kode pada `views.py` dengan:
     ```
     from django.contrib.auth.decorators import login_required
     ...
     @login_required(login_url='/login')
     def show_main(request):
     ...
-```
+    ```
 
 B. Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.
 - Akun pertama
@@ -598,78 +598,78 @@ B. Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan mo
 
 C. Menghubungkan model Product dengan User.
 - Menggunakan `ForeignKey` yang ditambahkan pada berkas `models.py` dengan perintah:
-```
-...
-from django.contrib.auth.models import User
-...
-class Product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-...
-```
-Setelah itu, pada `views.py`, ditambahkan perintah:
-```
-def create_product(request):
-    form = ProductForm(request.POST or None)
+    ```
+    ...
+    from django.contrib.auth.models import User
+    ...
+    class Product(models.Model):
+        user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ...
+    ```
+- Setelah itu, pada `views.py`, ditambahkan perintah:
+    ```
+    def create_product(request):
+        form = ProductForm(request.POST or None)
 
-    if form.is_valid() and request.method == "POST":
-        product = form.save(commit=False)
-        product.user = request.user
-        product.save()
-        return redirect('main:show_main')
+        if form.is_valid() and request.method == "POST":
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return redirect('main:show_main')
 
-    context = {'form': form}
-    return render(request, "create_product.html", context)
-```
-Kemudian, mengubah value dari `product_entries` dan `context` pada fungsi show_main menjadi:
-```
-def show_main(request):
-    product_entries = Product.objects.filter(user=request.user)
-        
-    context = {
-        'name': request.user.username,
-        'product_entries' : product_entries,
-        'last_login': request.COOKIES.get('last_login'),
-    }
+        context = {'form': form}
+        return render(request, "create_product.html", context)
+    ```
+- Kemudian, mengubah value dari `product_entries` dan `context` pada fungsi show_main menjadi:
+    ```
+    def show_main(request):
+        product_entries = Product.objects.filter(user=request.user)
+            
+        context = {
+            'name': request.user.username,
+            'product_entries' : product_entries,
+            'last_login': request.COOKIES.get('last_login'),
+        }
 
-    return render(request, "main.html", context)
-```
+        return render(request, "main.html", context)
+    ```
 - Melakukan migrasi model dengan perintah `python manage.py makemigrations` dan `python manage.py migrate`
 
 D. Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi.
 - Menambahkan potongan kode berikut pada berkas `views.py`
-```
-import datetime
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-...
-def show_main(request):
-    product_entries = Product.objects.filter(user=request.user)
-    
-    context = {
-        'name': request.user.username,
-        'product_entries' : product_entries,
-        'last_login': request.COOKIES.get('last_login'),
-    }
+    ```
+    import datetime
+    from django.http import HttpResponseRedirect
+    from django.urls import reverse
+    ...
+    def show_main(request):
+        product_entries = Product.objects.filter(user=request.user)
+        
+        context = {
+            'name': request.user.username,
+            'product_entries' : product_entries,
+            'last_login': request.COOKIES.get('last_login'),
+        }
 
-    return render(request, "main.html", context)
-...
-def login_user(request):
-    if request.method == 'POST':
-      form = AuthenticationForm(data=request.POST)
+        return render(request, "main.html", context)
+    ...
+    def login_user(request):
+        if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
 
-    if form.is_valid():
-        user = form.get_user()
-        login(request, user)
-        response = HttpResponseRedirect(reverse("main:show_main"))
-        response.set_cookie('last_login', str(datetime.datetime.now()))
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main"))
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
+    def logout_user(request):
+        logout(request)
+        response = HttpResponseRedirect(reverse('main:login'))
+        response.delete_cookie('last_login')
         return response
-def logout_user(request):
-    logout(request)
-    response = HttpResponseRedirect(reverse('main:login'))
-    response.delete_cookie('last_login')
-    return response
-...
-```
+    ...
+    ```
 - Menambahkan potongan kode berikut pada berkas `main.html`:
     ```
     ...
