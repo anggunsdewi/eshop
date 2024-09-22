@@ -423,12 +423,19 @@ Dilansir dari ruangdeveloper.com, perbedaan antara authentication dengan authori
 
 Django mengimplementasikan authentication dan authorization dengan menggunakan modul `django.contrib.auth`. Saat user mencoba login dengan memasukkan data, Django akan memverifikasi data yang dimasukkan user dengan data yang ada dalam database. Django menggunakan model `User` bawaan untuk menyimpan informasi ini. Jika data yang dimasukkan cocok, sistem mengautentikasi pengguna dan membuat session menggunakan middleware session. Session ini memungkinkan user tetap login tanpa harus memasukkan kredensial berulang kali pada setiap permintaan. Setelah itu, user akan melalui proses authorization. Implementasi authorization dalam Django melibatkan penggunaan dekorator `@login_required` yang ditambahkan pada berkas `views.py` untuk memastikan bahwa hanya user yang telah login yang dapat mengakses suatu halaman.
 
-Contoh penerapannya saat menggunakan website SCELE. User melewatkan proses authentication terlebih dahulu dengan melakukan login untuk menentukan apakah terdaftar sebagai civitas UI atau bukan. Setelah berhasil dalam authentication, sistem SCELE akan menentukan apa saja yang bisa diakses dan dlakukan oleh user tersebut, di mana terdapat perbedaan kendali antara dosen dengan mahasiswa. Inilah yang disebut dengan proses authorization.
+Contoh penerapannya saat menggunakan website SCELE. User melewatkan proses authentication terlebih dahulu dengan melakukan login untuk menentukan apakah terdaftar sebagai civitas UI atau bukan. Setelah berhasil dalam authentication, sistem SCELE akan menentukan apa saja yang bisa diakses dan dilakukan oleh user tersebut, di mana terdapat perbedaan kendali antara dosen dengan mahasiswa. Inilah yang disebut dengan proses authorization.
 
 ### Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
 Django mengingat pengguna yang telah melakukan login dengan menggunakan session. Saat pengguna berhasil melakukan login, Django membuat session unik untuk pengguna tersebut dan menyimpan data session di sisi server. Kemudian, Django mengirimkan cookies ke browser pengguna, yang biasanya disebut `sessionid`. Cookie ini berisi session ID yang digunakan untuk mengaitkan request selanjutnya dari pengguna dengan data session yang tersimpan di server. Setiap kali pengguna membuat request baru, browser mengirimkan cookie sessionid secara otomatis.
 
-Dilansir dari blog.sucuri.net, penggunaan cookies relatif aman digunakan. Data di dalam cookies tidak berbahaya Namun, jika data cookie jatuh ke tangan yang salah, maka dapat disalahgunakan untuk mengakses browsing sessions, informasi pribadi, dan lainnya. Menurut identitiy managementinstitute.org, beberapa kemungkinan serangan ketika menggunakan cookies, yakni:
+Selain digunakan untuk manajemen session dan authenthication, cookies memiliki berbagai kegunaan lain, yakni:
+- Personalisasi: menyimpan preferensi pengguna seperti tema, bahasa, atau pengaturan tampilan lainnya.
+- Pelacakan dan analitik: mengumpulkan data tentang perilaku pengguna untuk analisis, seperti halaman yang dikunjungi dan waktu yang dihabiskan.
+- Iklan yang ditargetkan: menampilkan iklan yang relevan berdasarkan riwayat penelusuran dan interaksi pengguna.
+- Authentication otomatis: mengingat sesi login pengguna sehingga mereka tidak perlu login kembali setiap kali mengunjungi situs.
+- Penyimpanan data formulir: menyimpan data yang telah dimasukkan dalam formulir untuk mencegah kehilangan data jika terjadi kesalahan.
+
+Dilansir dari blog.sucuri.net, penggunaan cookies relatif aman digunakan. Data di dalam cookies tidak berbahaya. Namun, jika data cookie jatuh ke tangan yang salah, maka dapat disalahgunakan untuk mengakses browsing sessions, informasi pribadi, dan lainnya. Menurut identitiy managementinstitute.org, beberapa kemungkinan serangan ketika menggunakan cookies, yakni:
 1. Session Hijacking: Penyerang dapat menggunakan cookie sesi yang dicuri untuk berpura-pura menjadi pengguna yang sah dan mengakses akun mereka. Dengan mencuri cookie sesi, penyerang dapat melewati mekanisme autentikasi dan melakukan tindakan atas nama korban, seperti mengirim pesan, melakukan pembelian, atau mengakses informasi sensitif.
 2. Cross-Site Scripting (XSS): Serangan XSS dapat menyisipkan kode berbahaya ke dalam situs web, yang kemudian bisa digunakan untuk mengatur atau menyalahgunakan cookie di browser pengguna. Cookie berbahaya ini bisa digunakan untuk mencuri data pribadi, seperti informasi login atau token sesi saat pengguna berinteraksi dengan situs web yang sudah terinfeksi.
 3. Cross-Site Request Forgery (CSRF): Serangan CSRF memanfaatkan hubungan kepercayaan antara situs web dan browser untuk menjalankan tindakan tanpa izin atas nama pengguna. Penyerang dapat menggunakan cookie untuk memalsukan permintaan HTTP yang tampak berasal dari browser pengguna, sehingga mereka bisa melakukan tindakan seperti mentransfer dana, mengubah pengaturan akun, atau mengirim formulir tanpa persetujuan pengguna.
@@ -516,63 +523,63 @@ def logout_user(request):
 ```
 - Membuat berkas `login.html` yang berisi:
 ```
-{% extends 'base.html' %}
+    {% extends 'base.html' %}
 
-{% block meta %}
-<title>Login</title>
-{% endblock meta %}
+    {% block meta %}
+    <title>Login</title>
+    {% endblock meta %}
 
-{% block content %}
-<div class="login">
-  <h1>Login</h1>
+    {% block content %}
+    <div class="login">
+    <h1>Login</h1>
 
-  <form method="POST" action="">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input class="btn login_btn" type="submit" value="Login" /></td>
-      </tr>
-    </table>
-  </form>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        <tr>
+            <td></td>
+            <td><input class="btn login_btn" type="submit" value="Login" /></td>
+        </tr>
+        </table>
+    </form>
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %} Don't have an account yet?
-  <a href="{% url 'main:register' %}">Register Now</a>
-</div>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} Don't have an account yet?
+    <a href="{% url 'main:register' %}">Register Now</a>
+    </div>
 
-{% endblock content %}
+    {% endblock content %}
 ```
 - Menambahkan button `Logout` pada `main.html` dengan kode:
 ```
-<a href="{% url 'main:logout' %}">
-  <button>Logout</button>
-</a>
+    <a href="{% url 'main:logout' %}">
+    <button>Logout</button>
+    </a>
 ```
 - Menambahkan path url register, login, dan logout pada `urlpatterns` yang ada pada direktori `urls.py` dengan kode:
 ```
-from main.views import register, login_user, logout_user
-...
-urlpatterns = [
-...
-path('register/', register, name='register'),
-    path('login/', login_user, name='login'),
-    path('logout/', logout_user, name='logout'),
-]
-```
-- Merestriksi akses halaman dengan menambahkan potongan kode pada `views.py` dengan:
-```
-from django.contrib.auth.decorators import login_required
-...
-@login_required(login_url='/login')
-def show_main(request):
-...
+    from main.views import register, login_user, logout_user
+    ...
+    urlpatterns = [
+    ...
+    path('register/', register, name='register'),
+        path('login/', login_user, name='login'),
+        path('logout/', logout_user, name='logout'),
+    ]
+    ```
+    - Merestriksi akses halaman dengan menambahkan potongan kode pada `views.py` dengan:
+    ```
+    from django.contrib.auth.decorators import login_required
+    ...
+    @login_required(login_url='/login')
+    def show_main(request):
+    ...
 ```
 
 B. Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.
@@ -664,11 +671,11 @@ def logout_user(request):
 ...
 ```
 - Menambahkan potongan kode berikut pada berkas `main.html`:
-```
-...
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-...
-```
+    ```
+    ...
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+    ...
+    ```
 
 ## Referensi
 Binus University. (2017, Mei 2). Apa itu AAA (authentication, authorization, accounting)? Sistem Informasi Binus. https://sis.binus.ac.id/2017/05/02/apa-itu-aaa-authentication-authorization-accounting/
