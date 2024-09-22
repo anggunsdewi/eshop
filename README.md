@@ -397,3 +397,258 @@ Dengan dikirimkannya request palsu, penyerang dapat memanfaatkan kesempatan ini 
 ## Referensi
 Amazon Web Services. (n.d.). The difference between JSON and XML. Amazon Web Services. Retrieved September 16, 2024, from https://aws.amazon.com/compare/the-difference-between-json-xml/#:~:text=JSON%20is%20generally%20a%20better,structures%20that%20require%20data%20exchange.
 </details>
+
+<details>
+    <summary><strong>📘Tugas 4 PBP</strong></summary>
+
+### Apa perbedaan antara HttpResponseRedirect() dan redirect()
+Dilansir dari stackoverflow.com, argumen pertama HttpResponseRedirect() hanya menerima bentuk URL sebagai string, sedangkan redirect() menerima bentuk model, nama view, maupun URL dalam argumennya. Hal ini menjadi keuntungan dari redirect() itu sendiri, yakni untuk mengurangi hardcoding URL, sehingga lebih mudah untuk memelihara aplikasi jika ada perubahan pada URLconf, sedangkan HttpResponseRedirect() kurang fleksibel dalam hal resolusi URL dinamis.
+
+### Jelaskan cara kerja penghubungan model Product dengan User!
+Cara kerja penghubungan model Product dengan User dilakukan menggunakan `ForeignKey`. ForeignKey digunakan untuk mendefinisikan many-to-one relationship, dalam hal ini adalah model Product dengan model User. Perintah ForeignKey ditambahkan pada berkas `models.py` dengan perintah:
+```
+class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+```
+
+### Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut
+Dilansir dari ruangdeveloper.com, perbedaan antara authentication dengan authorization dapat dilihat pada tabel berikut:
+| **Authentication** | **Authorization** |
+|--------------------|-------------------|
+| Proses menentukan identitas pengguna | Proses untuk menentukan apakah pengguna memiliki akses ke sumber daya |
+| Bekerja menggunakan kata sandi, OTP, informasi biometrik, dan informasi lain yang diberikan atau dimasukkan oleh pengguna | Bekerja berdasarkan peraturan yang telah ditetapkan oleh developer atau organisasi pemilik aplikasi |
+| Tahap pertama dalam proses pemeriksaan keamanan | Selalu dijalankan setelah proses authentication selesai |
+| Terlihat dan sebagian dapat diubah oleh pengguna | Tidak terlihat dan tidak dapat diubah oleh pengguna |
+| "Siapa kamu?" | "Apa yang bisa dilakukan?" |
+
+Django mengimplementasikan authentication dan authorization dengan menggunakan modul `django.contrib.auth`. Saat user mencoba login dengan memasukkan data, Django akan memverifikasi data yang dimasukkan user dengan data yang ada dalam database. Django menggunakan model `User` bawaan untuk menyimpan informasi ini. Jika data yang dimasukkan cocok, sistem mengautentikasi pengguna dan membuat session menggunakan middleware session. Session ini memungkinkan user tetap login tanpa harus memasukkan kredensial berulang kali pada setiap permintaan. Setelah itu, user akan melalui proses authorization. Implementasi authorization dalam Django melibatkan penggunaan dekorator `@login_required` yang ditambahkan pada berkas `views.py` untuk memastikan bahwa hanya user yang telah login yang dapat mengakses suatu halaman.
+
+Contoh penerapannya saat menggunakan website SCELE. User melewatkan proses authentication terlebih dahulu dengan melakukan login untuk menentukan apakah terdaftar sebagai civitas UI atau bukan. Setelah berhasil dalam authentication, sistem SCELE akan menentukan apa saja yang bisa diakses dan dlakukan oleh user tersebut, di mana terdapat perbedaan kendali antara dosen dengan mahasiswa. Inilah yang disebut dengan proses authorization.
+
+### Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+Django mengingat pengguna yang telah melakukan login dengan menggunakan session. Saat pengguna berhasil melakukan login, Django membuat session unik untuk pengguna tersebut dan menyimpan data session di sisi server. Kemudian, Django mengirimkan cookies ke browser pengguna, yang biasanya disebut `sessionid`. Cookie ini berisi session ID yang digunakan untuk mengaitkan request selanjutnya dari pengguna dengan data session yang tersimpan di server. Setiap kali pengguna membuat request baru, browser mengirimkan cookie sessionid secara otomatis.
+
+Dilansir dari blog.sucuri.net, penggunaan cookies relatif aman digunakan. Data di dalam cookies tidak berbahaya Namun, jika data cookie jatuh ke tangan yang salah, maka dapat disalahgunakan untuk mengakses browsing sessions, informasi pribadi, dan lainnya. Menurut identitiy managementinstitute.org, beberapa kemungkinan serangan ketika menggunakan cookies, yakni:
+1. Session Hijacking: Penyerang dapat menggunakan cookie sesi yang dicuri untuk berpura-pura menjadi pengguna yang sah dan mengakses akun mereka. Dengan mencuri cookie sesi, penyerang dapat melewati mekanisme autentikasi dan melakukan tindakan atas nama korban, seperti mengirim pesan, melakukan pembelian, atau mengakses informasi sensitif.
+2. Cross-Site Scripting (XSS): Serangan XSS dapat menyisipkan kode berbahaya ke dalam situs web, yang kemudian bisa digunakan untuk mengatur atau menyalahgunakan cookie di browser pengguna. Cookie berbahaya ini bisa digunakan untuk mencuri data pribadi, seperti informasi login atau token sesi saat pengguna berinteraksi dengan situs web yang sudah terinfeksi.
+3. Cross-Site Request Forgery (CSRF): Serangan CSRF memanfaatkan hubungan kepercayaan antara situs web dan browser untuk menjalankan tindakan tanpa izin atas nama pengguna. Penyerang dapat menggunakan cookie untuk memalsukan permintaan HTTP yang tampak berasal dari browser pengguna, sehingga mereka bisa melakukan tindakan seperti mentransfer dana, mengubah pengaturan akun, atau mengirim formulir tanpa persetujuan pengguna.
+4. Tracking dan Profiling: Meskipun tidak selalu berbahaya secara langsung, cookie dapat digunakan oleh pengiklan dan broker data untuk melacak perilaku online pengguna dan membangun profil rinci tentang minat, preferensi, serta kebiasaan mereka. Informasi ini bisa dimanfaatkan untuk menargetkan iklan, melakukan penipuan identitas, atau mencuri data pribadi.
+5. Phishing: Meskipun tidak terkait langsung dengan cookie, serangan phishing sering memanfaatkan kepercayaan dan penipuan untuk mengelabui orang agar memberikan kredensial login mereka secara sukarela. Penyerang dapat menggunakan cookie untuk mempersonalisasi email phishing atau situs web palsu agar terlihat meyakinkan dan berhasil membuat pengguna tertipu.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+A. Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna untuk mengakses aplikasi sebelumnya dengan lancar.
+- Mengaktifkan virtual environment
+- Menambahkan beberapa impor dan fungsi pada `views.py` yang dapat dilihat pada kode berikut:
+```
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+...
+def register(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been successfully created!')
+            return redirect('main:login')
+    context = {'form':form}
+    return render(request, 'register.html', context)
+
+def login_user(request):
+   if request.method == 'POST':
+      form = AuthenticationForm(data=request.POST)
+
+      if form.is_valid():
+           user = form.get_user()
+           login(request, user)
+           response = HttpResponseRedirect(reverse("main:show_main"))
+           response.set_cookie('last_login', str(datetime.datetime.now()))
+           return response
+
+   else:
+      form = AuthenticationForm(request)
+   context = {'form': form}
+   return render(request, 'login.html', context)
+
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
+```
+- Membuat berkas `register.html` yang berisi:
+```
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Register</title>
+{% endblock meta %}
+
+{% block content %}
+
+<div class="login">
+  <h1>Register</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+      <tr>
+        <td></td>
+        <td><input type="submit" name="submit" value="Daftar" /></td>
+      </tr>
+    </table>
+  </form>
+
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+
+{% endblock content %}
+```
+- Membuat berkas `login.html` yang berisi:
+```
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="login">
+  <h1>Login</h1>
+
+  <form method="POST" action="">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+      <tr>
+        <td></td>
+        <td><input class="btn login_btn" type="submit" value="Login" /></td>
+      </tr>
+    </table>
+  </form>
+
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %} Don't have an account yet?
+  <a href="{% url 'main:register' %}">Register Now</a>
+</div>
+
+{% endblock content %}
+```
+- Menambahkan button `Logout` pada `main.html` dengan kode:
+```
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+```
+- Menambahkan path url register, login, dan logout pada `urlpatterns` yang ada pada direktori `urls.py` dengan kode:
+```
+from main.views import register, login_user, logout_user
+...
+urlpatterns = [
+...
+path('register/', register, name='register'),
+    path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
+]
+```
+- Merestriksi akses halaman dengan menambahkan potongan kode pada `views.py` dengan:
+```
+from django.contrib.auth.decorators import login_required
+...
+@login_required(login_url='/login')
+def show_main(request):
+...
+```
+
+B. Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.
+
+
+
+C. Menghubungkan model Product dengan User.
+- Menggunakan `ForeignKey` yang ditambahkan pada berkas `models.py` dengan perintah:
+```
+class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+```
+Setelah itu, pada `views.py`, ditambahkan perintah:
+```
+def create_product(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        product = form.save(commit=False)
+        product.user = request.user
+        product.save()
+        return redirect('main:show_main')
+
+    context = {'form': form}
+    return render(request, "create_product.html", context)
+```
+Parameter `commit=False` yang digunakan pada potongan kode  berguna untuk mencegah Django agar tidak langsung menyimpan objek yang telah dibuat dari form langsung ke database. Hal tersebut memungkinkan modifikasi terlebih dahulu objek tersebut sebelum disimpan ke database. Pada kasus ini, kita akan mengisi field user dengan objek User dari return value request.user yang sedang terotorisasi untuk menandakan bahwa objek tersebut dimiliki oleh pengguna yang sedang login.
+
+Kemudian, mengubah value dari `product_entries` dan `context` pada fungsi show_main menjadi:
+```
+product_entries = Product.objects.filter(user=request.user)
+    
+    context = {
+        'name': request.user.username,
+        'product_entries' : product_entries,
+        'last_login': request.COOKIES.get('last_login'),
+    }
+
+    return render(request, "main.html", context)
+```
+Potongan kode tersebut berfungsi untuk menampilkan objek Product yang terasosiasikan dengan pengguna yang sedang `login`. Hal tersebut dilakukan dengan menyaring seluruh objek dengan hanya mengambil Product di mana field user terisi dengan objek User yang sama dengan pengguna yang sedang login.
+
+
+D. Menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last login pada halaman utama aplikasi.
+- Menambahkan perintah berikut pada fungsi `login_user`
+```
+if form.is_valid():
+    user = form.get_user()
+    login(request, user)
+    response = HttpResponseRedirect(reverse("main:show_main"))
+    response.set_cookie('last_login', str(datetime.datetime.now()))
+    return response
+```
+- Menambahkan perintah `'last_login': request.COOKIES.get('last_login')` berikut pada fungsi `show_main`
+```
+context = {
+    'name': 'Pak Bepe',
+    'class': 'PBP D',
+    'npm': '2306123456',
+    'mood_entries': mood_entries,
+    'last_login': request.COOKIES.get('last_login'),
+}
+```
+- Menambahkan perintah berikut pada fungsi `logout_user`
+```
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
+```
+
+
+## Referensi
+Stack Overflow. (2012, November 9). What is the difference between using django redirect and httpresponseredirect? Stack Overflow. https://stackoverflow.com/questions/13304149/what-the-difference-between-using-django-redirect-and-httpresponseredirect
+
+Ruang Developer. (2022, Oktober 15). Perbedaan antara authentication dan authorization. Ruang Developer. https://blog.ruangdeveloper.com/perbedaan-antara-authentication-dan-authorization/
+
+</details>
