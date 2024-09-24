@@ -1,44 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Shop at Fresh n Bloom</h1>
-<h4>by: Anggun Sasmitha Dewi (2306165673/PBP A)</h4>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <h1 class="text-4xl font-bold text-center text-gray-800 font-serif">Shop at Fresh n Bloom</h1>
+  <h4 class="text-xl text-center text-gray-600 mt-2">by: Anggun Sasmitha Dewi (2306165673/PBP A)</h4>
 
-<h5>Nama Admin: {{ name }}</h5>
+  <h5 class="text-lg text-gray-700 mt-8">Nama Admin: {{ name }}</h5>
 
-{% if not product_entries %}
-<p>Belum ada data product pada Fresh n Bloom.</p>
-{% else %}
-<table>
-  <tr>
-    <th>Product Name</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th>Stock</th>
-    <th>Rating</th>
-  </tr>
+  {% if not product_entries %}
+    <p class="text-center text-red-500 font-medium mt-4">Belum ada data product pada Fresh n Bloom.</p>
+  {% else %}
+    <div class="mt-6 overflow-x-auto">
+      <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Product Name</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Price</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Description</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Stock</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product_entry in product_entries %}
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.name }}</td>
+            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.price }}</td>
+            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.description }}</td>
+            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.stock }}</td>
+            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.rating }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
 
-  {% comment %} Berikut cara memperlihatkan data product di bawah baris ini 
-  {% endcomment %} 
-  {% for product_entry in product_entries %}
-  <tr>
-    <td>{{product_entry.name}}</td>
-    <td>{{product_entry.price}}</td>
-    <td>{{product_entry.description}}</td>
-    <td>{{product_entry.stock}}</td>
-    <td>{{product_entry.rating}}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% endif %}
+  <div class="mt-6 flex space-x-4">
+    <a href="{% url 'main:create_product' %}">
+      <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Add New Product</button>
+    </a>
+    
+    <a href="{% url 'main:logout' %}">
+      <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Logout</button>
+    </a>
+  </div>
 
-<br />
-
-<a href="{% url 'main:create_product' %}">
-  <button>Add New Product</button>
-</a>
-
-<a href="{% url 'main:logout' %}">
-  <button>Logout</button>
-</a>
-<h5>Sesi terakhir login: {{ last_login }}</h5>
+  <h5 class="text-sm text-gray-500 mt-6">Sesi terakhir login: {{ last_login }}</h5>
+</div>
 {% endblock content %}
