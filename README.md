@@ -588,13 +588,12 @@ B. Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan mo
 ![alt text](image-6.png)
 
 - Akun kedua
-![alt text](image-7.png)
 ![alt text](image-8.png)
+![alt text](image-7.png)
 
 - Akun ketiga
 ![alt text](image-11.png)
 ![alt text](image-10.png)
-
 
 C. Menghubungkan model Product dengan User.
 - Menggunakan `ForeignKey` yang ditambahkan pada berkas `models.py` dengan perintah:
