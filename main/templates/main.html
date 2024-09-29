@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
+{% include 'navbar.html' %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <h1 class="text-4xl font-bold text-center text-gray-800 font-serif">Shop at Fresh n Bloom</h1>
   <h4 class="text-xl text-center text-gray-600 mt-2">by: Anggun Sasmitha Dewi (2306165673/PBP A)</h4>
-
   <h5 class="text-lg text-gray-700 mt-8">Nama Admin: {{ name }}</h5>
 
   {% if not product_entries %}
-    <p class="text-center text-red-500 font-medium mt-4">Belum ada data product pada Fresh n Bloom.</p>
+    <p class="text-center text-red-600 font-semibold mt-4">Belum ada data product pada Fresh n Bloom.</p>
   {% else %}
     <div class="mt-6 overflow-x-auto">
       <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Product Name</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Price</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Description</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Stock</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-gray-700 text-left font-medium">Rating</th>
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Product Name</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Price</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Description</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Stock</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Rating</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -26,8 +27,16 @@
             <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.name }}</td>
             <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.price }}</td>
             <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.description }}</td>
-            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.stock }}</td>
+            <td class="px-6 py-4 border-b border-gray-200 text-gray-900 flex items-center space-x-2">
+              <a href="{% url 'main:decrement_product' product_entry.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">-</a>
+              <span>{{ product_entry.stock }}</span>
+              <a href="{% url 'main:increment_product' product_entry.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">+</a>
+            </td>
             <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.rating }}</td>
+            <td class="px-6 py-4 border-b border-gray-200 text-gray-900 flex items-center space-x-2">
+              <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Edit</a>
+              <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Delete</a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
@@ -37,11 +46,7 @@
 
   <div class="mt-6 flex space-x-4">
     <a href="{% url 'main:create_product' %}">
-      <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Add New Product</button>
-    </a>
-    
-    <a href="{% url 'main:logout' %}">
-      <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Logout</button>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Add New Product</button>
     </a>
   </div>
 

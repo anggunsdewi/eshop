@@ -84,3 +84,59 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def decrement_product(request, id):
+    product = Product.objects.get(pk=id)
+    if product.stock == 0:
+        messages.error(request, 'This product is out of stock!')
+        return HttpResponseRedirect(reverse('main:show_main'))
+    product.stock -= 1
+    product.save()
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+def increment_product(request, id):
+    product = Product.objects.get(pk=id)
+    product.stock += 1
+    product.save()
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+def delete_product(request, id):
+    product = Product.objects.get(pk=id)
+    product.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+def edit_product(request, id):
+    product = Product.objects.get(pk = id)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+def home(request):
+    products = Product.objects.all()
+    return render(request, 'home.html', {'products': products})
+
+def brand(request):
+    return render(request, 'brand.html')
+
+def categories(request):
+    makeup_products = Product.objects.filter(category__name='Makeup')
+    skincare_products = Product.objects.filter(category__name='Skincare')
+    daily_use_products = Product.objects.filter(category__name='Daily Use')
+    return render(request, 'categories.html', {
+        'makeup_products': makeup_products,
+        'skincare_products': skincare_products,
+        'daily_use_products': daily_use_products,
+    })
+
+def promotions(request):
+    return render(request, 'promotions.html')
+
+def new_arrivals(request):
+    return render(request, 'new_arrivals.html')
+
+def best_seller(request):
+    return render(request, 'best_seller.html')

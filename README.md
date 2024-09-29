@@ -700,3 +700,47 @@ Stack Overflow. (2012, November 9). What is the difference between using django 
 Sucuri. (2023, Januari 18). What are cookies? A short guide to managing your online privacy. Sucuri Blog. https://blog.sucuri.net/2023/01/what-are-cookies-a-short-guide-to-managing-your-online-privacy.html
 
 </details>
+
+<details>
+    <summary><strong>📘Tugas 5 PBP</strong></summary>
+
+### Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+Urutan prioritas pengambilan CSS selector, yang dikenal sebagai "specificity," memutuskan gaya mana yang diterapkan jika terdapat konflik antar gaya. Berikut adalah urutannya dari yang paling rendah ke yang paling tinggi:
+1. Type selectors (e.g., h1, p): Memilih semua elemen tipe tersebut.
+2. Class selectors (e.g., .class): Lebih spesifik daripada type selectors.
+3. ID selectors (e.g., #id): Lebih spesifik daripada class selectors.
+4. Inline styles: Ditempatkan langsung dalam tag HTML menggunakan atribut style, memiliki prioritas tertinggi dalam aturan CSS.
+5. !important: Deklarasi yang ditambahkan !important akan mengesampingkan semua aturan lain, meskipun ini sebaiknya dihindari karena bisa membuat CSS sulit diatur.
+
+### Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+Responsive design sangat penting karena memungkinkan aplikasi web disesuaikan dengan berbagai ukuran layar dan orientasi perangkat. Responsive design dapat meningkatkan pengalaman pengguna, menunjang aksesibilitas, dan efektivitas konten di berbagai platform.
+a. Contoh aplikasi yang menerapkan responsive design: Shopee yang menyajikan tampilan yang optimal di desktop, tablet, dan mobile.
+b. Contoh aplikasi yang belum menerapkan responsive design: SIAK-NG dan Pacil Web Server
+
+### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+Margin: Ruang antara batas luar elemen dengan elemen lain di sekitarnya. Tidak berwarna dan transparan.
+Border: Garis yang mengelilingi padding dan konten. Bisa diatur ketebalannya, gayanya, dan warnanya.
+Padding: Ruang antara konten dalam elemen dengan batas elemennya. Padding meningkatkan area baca dan estetika tampilan.
+Untuk mengimplementasikan ketiganya dalam CSS:
+```
+.box {
+    margin: 10px;      /* Mengatur margin semua sisi */
+    border: 2px solid black; /* Mengatur border dengan ketebalan 2px dan gaya solid */
+    padding: 20px;     /* Mengatur padding semua sisi */
+}
+```
+
+### Jelaskan konsep flex box dan grid layout beserta kegunaannya!t
+Flex Box: Merupakan mode layout satu dimensi yang memberikan kontrol lebih untuk penataan, penyesuaian, dan distribusi ruang antar item dalam container, bahkan ketika ukuran mereka dinamis atau tidak diketahui. Sangat berguna untuk UI komponen dan layout kecil.
+Grid Layout: Merupakan teknik layout dua dimensi yang memungkinkan kita untuk merancang interface menggunakan baris dan kolom, membuat kita dapat mengatur layout berdasarkan grid yang konsisten. Sangat cocok untuk desain layout yang kompleks dan besar seperti halaman utama website atau dashboard.
+
+Penggunaan:
+Flex Box: Digunakan untuk komponen-komponen kontrol toolbar, navigasi link, atau basis baris sederhana layout.
+Grid Layout: Digunakan untuk layout yang kompleks dan sektoral, seperti galeri foto atau layout berita dengan banyak elemen yang perlu diatur secara sistematis dan responsif.
+Kedua teknologi ini membantu developer menciptakan desain yang responsif dan mudah diatur pada berbagai perangkat dan ukuran layar, mempermudah pengembangan front-end.
+
+
+
+
+
+

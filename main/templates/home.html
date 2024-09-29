@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mx-auto mt-24 p-6" style="font-family: 'Roboto', sans-serif;">
+    <div class="bg-blue-100 shadow-lg rounded-lg p-6">
+        <h2 class="text-3xl font-bold text-gray-800">Welcome to Fresh n Bloom, {{ user.username }}</h2>
+        <p class="mt-4 text-gray-600">We are delighted to have you here. Explore our wide range of products and enjoy the best shopping experience.</p>
+    </div>
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for product in products %}
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-500 hover:scale-105">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-gray-800">{{ product.name }}</h3>
+                <p class="text-gray-600">{{ product.description }}</p>
+                <p class="text-gray-900 font-bold">{{ product.price }}</p>
+                <div class="mt-4 flex space-x-2">
+                    <a href="{% url 'main:edit_product' product.id %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">Edit</a>
+                    <a href="{% url 'main:delete_product' product.id %}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

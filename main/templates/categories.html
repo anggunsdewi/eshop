@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block meta %}
+<title>Categories</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'navbar.html' %}
+ <div class="container mx-auto mt-24 p-6">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Categories</h2>
+
+    <!-- Makeup Products -->
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Makeup</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for product in makeup_products %}
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="text-lg font-bold">{{ product.name }}</h3>
+                <p class="text-gray-700">{{ product.description }}</p>
+                <p class="text-gray-900 font-bold">{{ product.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Skincare Products -->
+    <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Skincare</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for product in skincare_products %}
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="text-lg font-bold">{{ product.name }}</h3>
+                <p class="text-gray-700">{{ product.description }}</p>
+                <p class="text-gray-900 font-bold">{{ product.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Daily Use Products -->
+    <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Daily Use</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for product in daily_use_products %}
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="text-lg font-bold">{{ product.name }}</h3>
+                <p class="text-gray-700">{{ product.description }}</p>
+                <p class="text-gray-900 font-bold">{{ product.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
