@@ -705,17 +705,32 @@ Sucuri. (2023, Januari 18). What are cookies? A short guide to managing your onl
     <summary><strong>📘Tugas 5 PBP</strong></summary>
 
 ### Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
-Urutan prioritas pengambilan CSS selector, yang dikenal sebagai "specificity," memutuskan gaya mana yang diterapkan jika terdapat konflik antar gaya. Berikut adalah urutannya dari yang paling rendah ke yang paling tinggi:
-1. Type selectors (e.g., h1, p): Memilih semua elemen tipe tersebut.
-2. Class selectors (e.g., .class): Lebih spesifik daripada type selectors.
-3. ID selectors (e.g., #id): Lebih spesifik daripada class selectors.
-4. Inline styles: Ditempatkan langsung dalam tag HTML menggunakan atribut style, memiliki prioritas tertinggi dalam aturan CSS.
-5. !important: Deklarasi yang ditambahkan !important akan mengesampingkan semua aturan lain, meskipun ini sebaiknya dihindari karena bisa membuat CSS sulit diatur.
+Urutan prioritas pengambilan CSS selector ditentukan berdasarkan sistem yang disebut *specificity*. *Specificity* adalah aturan yang digunakan browser untuk menentukan deklarasi CSS mana yang paling relevan untuk elemen tertentu. Dilansir dari developer.mozilla.org, urutan prioritasnya adalah sebagai berikut:
+1. **Inline styles**
+    Deklarasi yang ditulis langsung dalam atribut `style` elemen memiliki prioritas tertinggi
+2. **ID Selectors**
+    Selector yang menggunakan ID (misal, `#example`) memiliki prioritas yang lebih tinggi dibandingkan class dan type selectors
+3. **Class, Attribute, dan Pseudo-class Selectors**
+    Mencakup class selectors (`.class`), attribute selectors (`[type="text"]`), dan pseudo-classes (`:hover`)
+4. **Type Selectors dan Pseudo-elements**
+    Selector yang menargetkan jenis elemen (misal, `div`, `p`) dan pseudo-elements (misal, `::before`)
+
+Jika dua aturan memiliki specificity yang sama, CSS yang terletak paling bawah dalam kode akan diaplikasikan. Selain itu, penggunaan `!important` dalam deklarasi CSS dapat mengatasi aturan specificity ini, memberikan prioritas tertinggi terlepas dari lokasi atau tipe selector.
 
 ### Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
-Responsive design sangat penting karena memungkinkan aplikasi web disesuaikan dengan berbagai ukuran layar dan orientasi perangkat. Responsive design dapat meningkatkan pengalaman pengguna, menunjang aksesibilitas, dan efektivitas konten di berbagai platform.
-a. Contoh aplikasi yang menerapkan responsive design: Shopee yang menyajikan tampilan yang optimal di desktop, tablet, dan mobile.
-b. Contoh aplikasi yang belum menerapkan responsive design: SIAK-NG dan Pacil Web Server
+Dikutip dari webfx.com, *responsive design* sangat penting karena memungkinkan sebuah *website* menyesuaikan tampilan dan elemen kontennya secara otomatis dengan ukuran layar perangkat yang digunakan. Hal ini dapat menghindari pengguna melakukan *scrolling, zooming,* atau *panning* yang tidak perlu, yang sering terjadi pada *website* yang tidak dioptimalkan untuk berbagai perangkat. Dengan *responsive design*, *website* akan lebih mudah diakses, meningkatkan pengalaman pengguna (*user experience*) di semua perangkat, dari desktop hingga *smartphone.*
+Keuntungan *Responsive Design*:
+- Kemudahan Akses
+    Pengguna tidak perlu melakukan penyesuaian manual seperti memperbesar tampilan atau menggulir secara horizontal.
+- Efisiensi Biaya
+    Dengan hanya perlu membuat satu versi *website* yang dapat menyesuaikan pada berbagai perangkat, pengembang tidak perlu membuat versi terpisah untuk desktop dan mobile.
+- SEO
+    Google menyarankan penggunaan *responsive design*, karena *website* yang *mobile-friendly* lebih diutamakan dalam hasil pencarian.
+- Meningkatkan Retensi Pengguna
+    *Website* yang responsif mencegah pengguna meninggalkan situs karena frustrasi dengan tampilan yang tidak sesuai perangkat.
+
+a. Contoh aplikasi yang menerapkan *responsive design*: Shopee yang menyajikan tampilan yang optimal di desktop, tablet, dan mobile
+b. Contoh aplikasi yang belum menerapkan *responsive design*: SIAK-NG dan Pacil Web Service
 
 ### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
 Margin: Ruang antara batas luar elemen dengan elemen lain di sekitarnya. Tidak berwarna dan transparan.
@@ -730,14 +745,48 @@ Untuk mengimplementasikan ketiganya dalam CSS:
 }
 ```
 
-### Jelaskan konsep flex box dan grid layout beserta kegunaannya!t
-Flex Box: Merupakan mode layout satu dimensi yang memberikan kontrol lebih untuk penataan, penyesuaian, dan distribusi ruang antar item dalam container, bahkan ketika ukuran mereka dinamis atau tidak diketahui. Sangat berguna untuk UI komponen dan layout kecil.
-Grid Layout: Merupakan teknik layout dua dimensi yang memungkinkan kita untuk merancang interface menggunakan baris dan kolom, membuat kita dapat mengatur layout berdasarkan grid yang konsisten. Sangat cocok untuk desain layout yang kompleks dan besar seperti halaman utama website atau dashboard.
+### Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+Menurut dibimbing.com, Flexbox dan CSS Grid adalah dua teknologi modern untuk pengaturan layout di web yang memudahkan developer membuat tampilan yang responsif dan teratur. Keduanya menawarkan metode yang lebih intuitif dan fleksibel dibandingkan pendekatan tradisional.
 
-Penggunaan:
-Flex Box: Digunakan untuk komponen-komponen kontrol toolbar, navigasi link, atau basis baris sederhana layout.
-Grid Layout: Digunakan untuk layout yang kompleks dan sektoral, seperti galeri foto atau layout berita dengan banyak elemen yang perlu diatur secara sistematis dan responsif.
-Kedua teknologi ini membantu developer menciptakan desain yang responsif dan mudah diatur pada berbagai perangkat dan ukuran layar, mempermudah pengembangan front-end.
+Flexbox (Flexible Box Layout)
+Konsep: Flexbox adalah sistem layout satu dimensi yang dirancang untuk mengatur elemen dalam sebuah kontainer agar bisa beradaptasi dengan ruang yang tersedia. Flexbox memudahkan penyesuaian elemen-elemen dalam sebuah baris atau kolom, tergantung pada arah yang ditentukan (row atau column).
+Kegunaan:
+Pengaturan Tengah: Mudah mengatur elemen di tengah secara vertikal atau horizontal.
+Konsistensi Distribusi Ruang: Memberikan distribusi ruang yang konsisten di antara elemen, seperti pada navigasi atau toolbar.
+Kemampuan Responsif: Membuat layout yang responsif dengan lebih sedikit kode dan penyesuaian.
+
+CSS Grid (Grid Layout)
+Konsep: CSS Grid adalah sistem layout dua dimensi yang memungkinkan developer untuk membuat layout yang kompleks dan multi-kolom dengan mudah. Grid memungkinkan penentuan area atau "grid" di mana elemen dapat ditempatkan dalam baris dan kolom.
+Kegunaan:
+Desain Kompleks: Mengatur elemen dalam format yang lebih kompleks dengan kontrol atas baris dan kolom.
+Layout Majalah atau Portal Berita: Ideal untuk layout halaman yang membutuhkan format yang ketat dan beragam, seperti portal berita atau majalah online.
+Kontrol Layout: Kemampuan untuk menentukan ukuran, posisi, dan tata letak elemen dengan presisi.
+
+Perbandingan Penggunaan
+Kontrol: Flexbox lebih cocok untuk pengaturan elemen dalam satu dimensi (horizontal atau vertikal), sementara CSS Grid lebih unggul untuk pengaturan dua dimensi (baris dan kolom).
+Kompleksitas Layout: Flexbox lebih sederhana dan lebih cepat untuk dipelajari, sedangkan CSS Grid menawarkan lebih banyak fitur dan kontrol yang membuatnya ideal untuk layout yang lebih kompleks.
+Kemudahan Adaptasi: Flexbox cenderung lebih mudah untuk mengatur elemen dalam layout yang responsif, sementara Grid memberikan kekuatan lebih untuk desain yang lebih terstruktur dan detail.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+- Mengimport tailwind
+- Membuat fungsi pada views.py untuk edit item dan delete item
+- Mmebuat fungsi pada views.py untuk decrement dan increment item
+- Membuat fungsi pada views.py untuk tampilan home, category, dan cart
+- Menambahkan model kategori untuk produk pada models.py, kemudian dimigrasi
+- Menambahkan field "categories" pada forms.py
+- Membuat berkas baru bernama navbar.html, home.html, categories.html, dan cart.html pada templated di direktori main
+- Menurunkan navbar.html pada main.html, create_product.html, cart.html, home.html, categories.html
+- Routing url dengan mengimpor fungsi pada views.py di urls.py yang ada pada direktori main
+- Membuat berkas global.css yang ada pada direktori static/css
+
+
+
+## Referensi
+Dibimbing. (n.d.). Memahami Penggunaan CSS Grid dan Flexbox. Retrieved from https://dibimbing.id/blog/detail/memahami-penggunaan-css-grid-dan-flexbox
+
+MDN Web Docs. (n.d.). Specificity. Retrieved from https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
+
+WebFX. (n.d.). Why Is Responsive Design So Important?. Retrieved from https://www.webfx.com/web-design/learn/why-responsive-design-important/#:~:text=The%20ultimate%20goal%20of%20responsive,been%20optimized%20for%20different%20devices.
 
 
 
