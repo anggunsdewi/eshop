@@ -8,7 +8,7 @@
     background-position: center;
   }
   .text-color-main {
-    color: #9b5de5; 
+    color: #9b5de5;
   }
 
   .bg-color-main {
@@ -18,35 +18,42 @@
   .hover-bg-color-main:hover {
     background-color: #9b5de5;
   }
+
+  .product-card {
+    background-color: white;
+    border: 1px solid #eee;
+    shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 20px; /* ensures spacing between cards and the add button */
+  }
 </style>
+
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <h1 class="text-4xl font-bold text-center mb-4 text-color-main" style="animation: slide 10s infinite alternate;">Welcome to Fresh n Bloom</h1>
 
-  {% if not product_entries %}
-    <p class="text-center font-semibold mt-4 text-color-main">Belum ada data product pada Fresh n Bloom.</p>
-  {% else %}
-    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+  <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {% if not product_entries %}
+      <p class="text-center font-semibold mt-4 text-color-main">Belum ada data product pada Fresh n Bloom.</p>
+    {% else %}
       {% for product_entry in product_entries %}
-      <div class="bg-white border border-color-main shadow-md rounded-lg overflow-hidden">
-        <img src="{{ product_entry.image_url }}" alt="{{ product_entry.name }}" class="w-full h-48 object-cover">
-        <div class="p-4">
+        <div class="product-card">
           <h3 class="text-lg font-semibold text-color-main">{{ product_entry.name }}</h3>
           <p class="text-md text-color-main">{{ product_entry.price }}</p>
           <p class="text-sm text-color-main">{{ product_entry.description }}</p>
           <p class="text-sm text-color-main">Stock: {{ product_entry.stock }}</p>
           <p class="text-sm text-color-main">Rating: {{ product_entry.rating }}</p>
-          <p class="text-sm text-color-main">Categories: {{ product_entry.categories }}</p>
           <div class="flex items-center space-x-2 mt-2">
             <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-color-main hover-bg-color-main text-white font-bold py-2 px-4 rounded-lg">Edit</a>
             <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg">Delete</a>
           </div>
         </div>
-      </div>
       {% endfor %}
-    </div>
-  {% endif %}
+    {% endif %}
+  </div>
 
-  <div class="mt-6">
+  <div class="mt-4">
     <a href="{% url 'main:create_product' %}">
       <button class="bg-color-main hover-bg-color-main text-white font-bold py-2 px-4 rounded-lg">Add New Product</button>
     </a>

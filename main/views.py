@@ -121,14 +121,7 @@ def home(request):
 
 
 def categories(request):
-    makeup_products = Product.objects.filter(categories__name='Makeup')
-    skincare_products = Product.objects.filter(categories__name='Skincare')
-    daily_use_products = Product.objects.filter(categories__name='Daily Use')
-    return render(request, 'categories.html', {
-        'makeup_products': makeup_products,
-        'skincare_products': skincare_products,
-        'daily_use_products': daily_use_products,
-    })
+    return render(request, 'categories.html')
 
 def product_list(request):
     products = Product.objects.all()

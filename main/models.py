@@ -2,12 +2,6 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User
 
-class Category(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -20,7 +14,6 @@ class Product(models.Model):
     description = models.TextField()
     stock = models.IntegerField()
     rating = models.FloatField()
-    categories = models.ManyToManyField(Category, related_name='products')
 
     def name_of_product(self):
         return self.name

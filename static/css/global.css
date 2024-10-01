@@ -89,3 +89,43 @@ li {
     background-size: 200% 100%;
     animation: shine 3s infinite;
 }
+
+/* Styles for mobile and small screens */
+@media (max-width: 768px) {
+    /* Menampilkan mobile menu button dan menyembunyikan navigation links desktop */
+    .mobile-menu-button {
+      display: block;
+    }
+  
+    .md\\:flex.items-center.space-x-4 {
+      display: none;
+    }
+  
+    /* Styling untuk mobile menu */
+    .mobile-menu {
+      display: block; /* Sembunyikan secara default dan hanya tampilkan saat button diklik */
+    }
+  
+    .mobile-menu.hidden {
+      display: none;
+    }
+  }
+  
+  /* Styles for desktop screens */
+  @media (min-width: 769px) {
+    /* Menyembunyikan mobile menu button pada desktop */
+    .mobile-menu-button {
+      display: none;
+    }
+  
+    /* Menampilkan navigation links untuk desktop */
+    .md\\:flex.items-center.space-x-4 {
+      display: flex;
+    }
+  
+    /* Menyembunyikan mobile menu pada desktop */
+    .mobile-menu {
+      display: none;
+    }
+  }
+  
