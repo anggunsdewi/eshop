@@ -1,8 +1,8 @@
 import datetime
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render, redirect
-from main.models import Product
+from django.shortcuts import get_object_or_404, render, redirect
+from main.models import Product, Cart, CartItem
 from main.forms import ProductForm
 from django.http import HttpResponse
 from django.core import serializers
@@ -119,24 +119,37 @@ def home(request):
     products = Product.objects.all()
     return render(request, 'home.html', {'products': products})
 
-def brand(request):
-    return render(request, 'brand.html')
 
 def categories(request):
-    makeup_products = Product.objects.filter(category__name='Makeup')
-    skincare_products = Product.objects.filter(category__name='Skincare')
-    daily_use_products = Product.objects.filter(category__name='Daily Use')
+    makeup_products = Product.objects.filter(categories__name='Makeup')
+    skincare_products = Product.objects.filter(categories__name='Skincare')
+    daily_use_products = Product.objects.filter(categories__name='Daily Use')
     return render(request, 'categories.html', {
         'makeup_products': makeup_products,
         'skincare_products': skincare_products,
         'daily_use_products': daily_use_products,
     })
 
-def promotions(request):
-    return render(request, 'promotions.html')
+def product_list(request):
+    products = Product.objects.all()
+    return render(request, 'product_list.html', {'products': products})
 
-def new_arrivals(request):
-    return render(request, 'new_arrivals.html')
+def view_cart(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    items = CartItem.objects.filter(cart=cart)
+    context = {'cart': cart, 'items': items}
+    return render(request, 'cart.html', context)
 
-def best_seller(request):
-    return render(request, 'best_seller.html')
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    if not created:
+        cart_item.quantity += 1
+    cart_item.save()
+    return redirect('view_cart')
+
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    cart_item.delete()
+    return redirect('view_cart')

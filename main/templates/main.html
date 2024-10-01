@@ -1,41 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <h1 class="text-4xl font-bold text-center text-gray-800 font-serif">Welcome to Fresh n Bloom</h1>
-  <p class="text-center text-gray-600 mt-4">Your one-stop shop for fresh flowers and plants.</p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" style="background-color: #f4f1ec;">
+  <h1 class="text-4xl font-bold text-center" style="color: #6e5646;">Welcome to Fresh n Bloom</h1>
+  <p class="text-center" style="color: #887b68;">Your one-stop shop for skincare and makeup.</p>
 
   {% if not product_entries %}
-    <p class="text-center text-red-600 font-semibold mt-4">Belum ada data product pada Fresh n Bloom.</p>
+    <p class="text-center font-semibold mt-4" style="color: #d08770;">Belum ada data product pada Fresh n Bloom.</p>
   {% else %}
     <div class="mt-6 overflow-x-auto">
       <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-        <thead class="bg-gray-100">
+        <thead style="background-color: #e6dcd3; color: #6e5646;">
           <tr>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Product Name</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Price</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Description</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Stock</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Rating</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Categories</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-gray-800 font-semibold">Action</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Product Name</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Price</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Description</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Stock</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Rating</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Categories</th>
+            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Action</th>
           </tr>
         </thead>
         <tbody>
           {% for product_entry in product_entries %}
           <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.name }}</td>
-            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.price }}</td>
-            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.description }}</td>
-            <td class="px-6 py-4 border-b border-gray-200 text-gray-900 flex items-center space-x-2">
-              <a href="{% url 'main:decrement_product' product_entry.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">-</a>
+            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.name }}</td>
+            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.price }}</td>
+            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.description }}</td>
+            <td class="px-6 py-4 border-b border-gray-200 flex items-center space-x-2">
+              <a href="{% url 'main:decrement_product' product_entry.pk %}" class="bg-pink-300 hover:bg-pink-400 text-white font-bold py-2 px-4 rounded-lg">-</a>
               <span>{{ product_entry.stock }}</span>
-              <a href="{% url 'main:increment_product' product_entry.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">+</a>
+              <a href="{% url 'main:increment_product' product_entry.pk %}" class="bg-pink-300 hover:bg-pink-400 text-white font-bold py-2 px-4 rounded-lg">+</a>
             </td>
-            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.rating }}</td>
-            <td class="px-6 py-4 border-b border-gray-200 text-gray-900">{{ product_entry.categories }}</td>
-            <td class="px-6 py-4 border-b border-gray-200 text-gray-900 flex items-center space-x-2">
-              <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Edit</a>
-              <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Delete</a>
+            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.rating }}</td>
+            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.categories }}</td>
+            <td class="px-6 py-4 border-b border-gray-200 flex items-center space-x-2">
+              <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-teal-300 hover:bg-teal-400 text-white font-bold py-2 px-4 rounded-lg">Edit</a>
+              <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg">Delete</a>
             </td>
           </tr>
           {% endfor %}
@@ -46,10 +46,10 @@
 
   <div class="mt-6 flex space-x-4">
     <a href="{% url 'main:create_product' %}">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Add New Product</button>
+      <button class="bg-teal-300 hover:bg-teal-400 text-white font-bold py-2 px-4 rounded-lg">Add New Product</button>
     </a>
   </div>
 
-  <h5 class="text-sm text-gray-500 mt-6">Sesi terakhir login: {{ last_login }}</h5>
+  <h5 class="text-sm mt-6" style="color: #a0a0a0;">Sesi terakhir login: {{ last_login }}</h5>
 </div>
 {% endblock content %}

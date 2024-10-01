@@ -1,5 +1,5 @@
 from django.urls import path
-from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id, register, login_user, logout_user, decrement_product, increment_product, delete_product, edit_product, home, brand, categories, promotions, new_arrivals, best_seller
+from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id, register, login_user, logout_user, decrement_product, increment_product, delete_product, edit_product, home, categories, view_cart, add_to_cart, remove_from_cart, product_list
 
 
 
@@ -20,9 +20,9 @@ urlpatterns = [
     path('delete-product/<uuid:id>/', delete_product, name='delete_product'),
     path('product/edit/<uuid:id>/', edit_product, name='edit_product'),
     path('home/', home, name='home'),
-    # path('brand/', brand, name='brand'),
     path('categories/', categories, name='categories'),
-    # path('promotions/', promotions, name='promotions'),
-    # path('new-arrivals/', new_arrivals, name='new_arrivals'), 
-    # path('best-seller/', best_seller, name='best_seller')
+    path('products/', product_list, name='product_list'),
+    path('cart/', view_cart, name='view_cart'),
+    path('cart/add/<int:product_id>/', add_to_cart, name='add_to_cart'),
+    path('cart/remove/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
 ]
