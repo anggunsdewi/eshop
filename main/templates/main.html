@@ -1,55 +1,57 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" style="background-color: #f4f1ec;">
-  <h1 class="text-4xl font-bold text-center" style="color: #6e5646;">Welcome to Fresh n Bloom</h1>
-  <p class="text-center" style="color: #887b68;">Your one-stop shop for skincare and makeup.</p>
+<style>
+  body {
+    background-image: url("{% static 'images/image-9.png' %}");
+    background-size: cover;
+    background-position: center;
+  }
+  .text-color-main {
+    color: #9b5de5; 
+  }
+
+  .bg-color-main {
+    background-color: #f15bb5;
+  }
+
+  .hover-bg-color-main:hover {
+    background-color: #9b5de5;
+  }
+</style>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <h1 class="text-4xl font-bold text-center mb-4 text-color-main" style="animation: slide 10s infinite alternate;">Welcome to Fresh n Bloom</h1>
 
   {% if not product_entries %}
-    <p class="text-center font-semibold mt-4" style="color: #d08770;">Belum ada data product pada Fresh n Bloom.</p>
+    <p class="text-center font-semibold mt-4 text-color-main">Belum ada data product pada Fresh n Bloom.</p>
   {% else %}
-    <div class="mt-6 overflow-x-auto">
-      <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-        <thead style="background-color: #e6dcd3; color: #6e5646;">
-          <tr>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Product Name</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Price</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Description</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Stock</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Rating</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Categories</th>
-            <th class="px-6 py-3 border-b-2 border-gray-200 text-left font-semibold">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for product_entry in product_entries %}
-          <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.name }}</td>
-            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.price }}</td>
-            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.description }}</td>
-            <td class="px-6 py-4 border-b border-gray-200 flex items-center space-x-2">
-              <a href="{% url 'main:decrement_product' product_entry.pk %}" class="bg-pink-300 hover:bg-pink-400 text-white font-bold py-2 px-4 rounded-lg">-</a>
-              <span>{{ product_entry.stock }}</span>
-              <a href="{% url 'main:increment_product' product_entry.pk %}" class="bg-pink-300 hover:bg-pink-400 text-white font-bold py-2 px-4 rounded-lg">+</a>
-            </td>
-            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.rating }}</td>
-            <td class="px-6 py-4 border-b border-gray-200" style="color: #6e5646;">{{ product_entry.categories }}</td>
-            <td class="px-6 py-4 border-b border-gray-200 flex items-center space-x-2">
-              <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-teal-300 hover:bg-teal-400 text-white font-bold py-2 px-4 rounded-lg">Edit</a>
-              <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg">Delete</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {% for product_entry in product_entries %}
+      <div class="bg-white border border-color-main shadow-md rounded-lg overflow-hidden">
+        <img src="{{ product_entry.image_url }}" alt="{{ product_entry.name }}" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold text-color-main">{{ product_entry.name }}</h3>
+          <p class="text-md text-color-main">{{ product_entry.price }}</p>
+          <p class="text-sm text-color-main">{{ product_entry.description }}</p>
+          <p class="text-sm text-color-main">Stock: {{ product_entry.stock }}</p>
+          <p class="text-sm text-color-main">Rating: {{ product_entry.rating }}</p>
+          <p class="text-sm text-color-main">Categories: {{ product_entry.categories }}</p>
+          <div class="flex items-center space-x-2 mt-2">
+            <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-color-main hover-bg-color-main text-white font-bold py-2 px-4 rounded-lg">Edit</a>
+            <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg">Delete</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
   {% endif %}
 
-  <div class="mt-6 flex space-x-4">
+  <div class="mt-6">
     <a href="{% url 'main:create_product' %}">
-      <button class="bg-teal-300 hover:bg-teal-400 text-white font-bold py-2 px-4 rounded-lg">Add New Product</button>
+      <button class="bg-color-main hover-bg-color-main text-white font-bold py-2 px-4 rounded-lg">Add New Product</button>
     </a>
   </div>
 
-  <h5 class="text-sm mt-6" style="color: #a0a0a0;">Sesi terakhir login: {{ last_login }}</h5>
+  <h5 class="text-sm mt-6 text-color-main">Last login session: {{ last_login }}</h5>
 </div>
 {% endblock content %}
