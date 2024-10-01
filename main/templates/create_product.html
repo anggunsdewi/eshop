@@ -1,19 +1,17 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
-{% include 'navbar.html' %}
-<h1>Add Product</h1>
+<h1 class="text-3xl font-bold mb-4">Add Product</h1>
 
-<form method="POST">
+<form method="POST" class="max-w-md mx-auto bg-white p-6 rounded shadow">
   {% csrf_token %}
-  <table>
+  <table class="w-full">
     {{ form.as_table }}
     <tr>
       <td></td>
       <td>
-        <input type="submit" value="Add Product" />
+        <input type="submit" value="Add Product" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" />
       </td>
     </tr>
   </table>
 </form>
-
 {% endblock %}

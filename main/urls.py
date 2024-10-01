@@ -20,9 +20,9 @@ urlpatterns = [
     path('delete-product/<uuid:id>/', delete_product, name='delete_product'),
     path('product/edit/<uuid:id>/', edit_product, name='edit_product'),
     path('home/', home, name='home'),
-    path('brand/', brand, name='brand'),
+    # path('brand/', brand, name='brand'),
     path('categories/', categories, name='categories'),
-    path('promotions/', promotions, name='promotions'),
-    path('new-arrivals/', new_arrivals, name='new_arrivals'), 
-    path('best-seller/', best_seller, name='best_seller')
+    # path('promotions/', promotions, name='promotions'),
+    # path('new-arrivals/', new_arrivals, name='new_arrivals'), 
+    # path('best-seller/', best_seller, name='best_seller')
 ]
