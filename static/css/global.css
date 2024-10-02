@@ -1,10 +1,10 @@
 body {
-  background-image: url("{% static 'images/image-9.png' %}");
+  background-image: url("{% static 'images/background.jpeg %}");
   background-size: cover;
   background-position: center;
 }
 .text-color-main {
-  color: #ffffff;
+  color: #9b5de5;
 }
 
 .bg-color-main {

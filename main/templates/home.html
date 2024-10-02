@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block meta %}
 <title>Home</title>
@@ -7,6 +8,13 @@
 
 {% block content %}
 {% include 'navbar.html' %}
+<style>
+    body {
+        background-image: url("{% static 'images/background.jpeg' %}");
+        background-size: cover;
+        background-position: center;
+    }
+</style>
 <div class="container mx-auto mt-24 p-6" style="font-family: 'Roboto', sans-serif;">
     <div class="bg-blue-100 shadow-lg rounded-lg p-6">
         <h2 class="text-3xl font-bold text-gray-800">Welcome to Fresh n Bloom, {{ user.username }}</h2>

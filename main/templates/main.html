@@ -3,9 +3,18 @@
 {% block content %}
 <style>
   body {
-  background-image: url("{% static 'images/image-9.png' %}");
+  background-image: url("{% static 'images/background.jpeg' %}");
   background-size: cover;
   background-position: center;
+}
+.product-card {
+  background-color: white;
+  border: 1px solid #eee;
+  shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 </style>
 
@@ -15,7 +24,7 @@
   <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     {% if not product_entries %}
     <div class="text-center">
-      <img src="{% static 'images/25516.jpg' %}" alt="Sad face" class="w-32 h-32 mb-4 mx-auto"/>
+      <img src="{% static 'images/sad.png' %}" alt="Sad face" class="w-32 h-32 mb-4 mx-auto"/>
       <p class="font-semibold mt-4 text-color-main" style="white-space: nowrap;">
         Belum ada data product pada Fresh n Bloom.
       </p>

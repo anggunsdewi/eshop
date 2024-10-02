@@ -1,7 +1,14 @@
-<!-- cart.html -->
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
+<style>
+  body {
+      background-image: url("{% static 'images/background.jpeg' %}");
+      background-size: cover;
+      background-position: center;
+  }
+</style>
   <h2>Belum dibuat juga (harusnya isi your cart)</h2>
   <ul>
     {% for item in items %}
