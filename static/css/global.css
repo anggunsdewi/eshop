@@ -1,8 +1,29 @@
 body {
-    background-color: #f4e1f1;
-    font-family: 'Arial', sans-serif;
+  background-image: url("{% static 'images/image-9.png' %}");
+  background-size: cover;
+  background-position: center;
+}
+.text-color-main {
+  color: #ffffff;
 }
 
+.bg-color-main {
+  background-color: #f15bb5;
+}
+
+.hover-bg-color-main:hover {
+  background-color: #9b5de5;
+}
+
+.product-card {
+  background-color: white;
+  border: 1px solid #eee;
+  shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 20px;
+  margin-bottom: 20px;
+}
 
 .login {
     max-width: 400px;
@@ -90,9 +111,8 @@ li {
     animation: shine 3s infinite;
 }
 
-/* Styles for mobile and small screens */
+
 @media (max-width: 768px) {
-    /* Menampilkan mobile menu button dan menyembunyikan navigation links desktop */
     .mobile-menu-button {
       display: block;
     }
@@ -101,9 +121,9 @@ li {
       display: none;
     }
   
-    /* Styling untuk mobile menu */
+   
     .mobile-menu {
-      display: block; /* Sembunyikan secara default dan hanya tampilkan saat button diklik */
+      display: block; 
     }
   
     .mobile-menu.hidden {
@@ -111,21 +131,20 @@ li {
     }
   }
   
-  /* Styles for desktop screens */
   @media (min-width: 769px) {
-    /* Menyembunyikan mobile menu button pada desktop */
     .mobile-menu-button {
       display: none;
     }
   
-    /* Menampilkan navigation links untuk desktop */
+
     .md\\:flex.items-center.space-x-4 {
       display: flex;
     }
   
-    /* Menyembunyikan mobile menu pada desktop */
+    
     .mobile-menu {
       display: none;
     }
   }
+
   

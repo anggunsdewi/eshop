@@ -721,13 +721,13 @@ Jika dua aturan memiliki specificity yang sama, CSS yang terletak paling bawah d
 Dikutip dari webfx.com, *responsive design* sangat penting karena memungkinkan sebuah *website* menyesuaikan tampilan dan elemen kontennya secara otomatis dengan ukuran layar perangkat yang digunakan. Hal ini dapat menghindari pengguna melakukan *scrolling, zooming,* atau *panning* yang tidak perlu, yang sering terjadi pada *website* yang tidak dioptimalkan untuk berbagai perangkat. Dengan *responsive design*, *website* akan lebih mudah diakses, meningkatkan pengalaman pengguna (*user experience*) di semua perangkat, dari desktop hingga *smartphone.*
 Keuntungan *Responsive Design*:
 - Kemudahan Akses
-    Pengguna tidak perlu melakukan penyesuaian manual seperti memperbesar tampilan atau menggulir secara horizontal.
+Pengguna tidak perlu melakukan penyesuaian manual seperti memperbesar tampilan atau menggulir secara horizontal.
 - Efisiensi Biaya
-    Dengan hanya perlu membuat satu versi *website* yang dapat menyesuaikan pada berbagai perangkat, pengembang tidak perlu membuat versi terpisah untuk desktop dan mobile.
+Dengan hanya perlu membuat satu versi *website* yang dapat menyesuaikan pada berbagai perangkat, pengembang tidak perlu membuat versi terpisah untuk desktop dan mobile.
 - SEO
-    Google menyarankan penggunaan *responsive design*, karena *website* yang *mobile-friendly* lebih diutamakan dalam hasil pencarian.
+Google menyarankan penggunaan *responsive design*, karena *website* yang *mobile-friendly* lebih diutamakan dalam hasil pencarian.
 - Meningkatkan Retensi Pengguna
-    *Website* yang responsif mencegah pengguna meninggalkan situs karena frustrasi dengan tampilan yang tidak sesuai perangkat.
+*Website* yang responsif mencegah pengguna meninggalkan situs karena frustrasi dengan tampilan yang tidak sesuai perangkat.
 
 a. Contoh aplikasi yang menerapkan *responsive design*: Shopee yang menyajikan tampilan yang optimal di desktop, tablet, dan mobile
 b. Contoh aplikasi yang belum menerapkan *responsive design*: SIAK-NG dan Pacil Web Service
@@ -750,6 +750,7 @@ Menurut dibimbing.com, Flexbox dan CSS Grid adalah dua teknologi modern untuk pe
 
 Flexbox (Flexible Box Layout)
 Konsep: Flexbox adalah sistem layout satu dimensi yang dirancang untuk mengatur elemen dalam sebuah kontainer agar bisa beradaptasi dengan ruang yang tersedia. Flexbox memudahkan penyesuaian elemen-elemen dalam sebuah baris atau kolom, tergantung pada arah yang ditentukan (row atau column).
+
 Kegunaan:
 Pengaturan Tengah: Mudah mengatur elemen di tengah secara vertikal atau horizontal.
 Konsistensi Distribusi Ruang: Memberikan distribusi ruang yang konsisten di antara elemen, seperti pada navigasi atau toolbar.
@@ -757,6 +758,7 @@ Kemampuan Responsif: Membuat layout yang responsif dengan lebih sedikit kode dan
 
 CSS Grid (Grid Layout)
 Konsep: CSS Grid adalah sistem layout dua dimensi yang memungkinkan developer untuk membuat layout yang kompleks dan multi-kolom dengan mudah. Grid memungkinkan penentuan area atau "grid" di mana elemen dapat ditempatkan dalam baris dan kolom.
+
 Kegunaan:
 Desain Kompleks: Mengatur elemen dalam format yang lebih kompleks dengan kontrol atas baris dan kolom.
 Layout Majalah atau Portal Berita: Ideal untuk layout halaman yang membutuhkan format yang ketat dan beragam, seperti portal berita atau majalah online.
@@ -770,14 +772,28 @@ Kemudahan Adaptasi: Flexbox cenderung lebih mudah untuk mengatur elemen dalam la
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 - Mengimport tailwind
 - Membuat fungsi pada views.py untuk edit item dan delete item
-- Mmebuat fungsi pada views.py untuk decrement dan increment item
-- Membuat fungsi pada views.py untuk tampilan home, category, dan cart
-- Menambahkan model kategori untuk produk pada models.py, kemudian dimigrasi
-- Menambahkan field "categories" pada forms.py
-- Membuat berkas baru bernama navbar.html, home.html, categories.html, dan cart.html pada templated di direktori main
-- Menurunkan navbar.html pada main.html, create_product.html, cart.html, home.html, categories.html
-- Routing url dengan mengimpor fungsi pada views.py di urls.py yang ada pada direktori main
-- Membuat berkas global.css yang ada pada direktori static/css
+    ```
+    def delete_product(request, id):
+        product = Product.objects.get(pk=id)
+        product.delete()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    def edit_product(request, id):
+        product = Product.objects.get(pk = id)
+        form = ProductForm(request.POST or None, instance=product)
+        if form.is_valid() and request.method == "POST":
+            form.save()
+            return HttpResponseRedirect(reverse('main:show_main'))
+
+        context = {'form': form}
+        return render(request, "edit_product.html", context)
+    ```
+- Mendesign halaman `login.html`, `register.html`, `main.html`
+- Membuat berkas baru bernama `navbar.html`, `home.html`, `categories.html`, dan `cart.html` pada templates di direktori main dan mendesignnya
+- Menurunkan `navbar.html` pada `main.html`, `create_product.html`, `cart.html`, `home.html`, `categories.html`
+- Routing url dengan mengimpor fungsi baru pada views.py di urls.py yang ada pada direktori main
+- Membuat berkas `global.css` yang ada pada direktori `static/css`
+- Mengimpor gambar untuk ditaruh di dalam web dalam direktori `static/images`
 
 
 
