@@ -1,8 +1,8 @@
 body {
-  background-image: url("{% static 'images/background.jpeg %}");
   background-size: cover;
   background-position: center;
 }
+
 .text-color-main {
   color: #9b5de5;
 }
@@ -18,133 +18,28 @@ body {
 .product-card {
   background-color: white;
   border: 1px solid #eee;
-  shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
   padding: 20px;
-  margin-bottom: 20px;
 }
-
-.login {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid #f15bb5; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 
 h1 {
-    color: #9b5de5;
-    text-align: center;
+  color: #9b5de5;
+  text-align: center;
 }
-
-
-table {
-    width: 100%;
-    line-height: 2.5;
-}
-
 
 input[type="submit"] {
-    background-color: #9b5de5; 
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    margin: 20px auto;
-    transition: background 0.3s ease;
+  background-color: #9b5de5; 
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  transition: background 0.3s ease;
 }
 
 input[type="submit"]:hover {
-    background-color: #f15bb5; /
+  background-color: #f15bb5;
 }
-
-
-ul, ol {
-    list-style-type: none;
-    padding: 0;
-    color: red;
-}
-
-li {
-    margin-top: 10px;
-}
-
-
-.text-center {
-    text-align: center;
-}
-
-.text-color-main {
-    color: #9b5de5;
-}
-
-.bg-color-main {
-    background-color: #f15bb5;
-}
-
-.border-color-main {
-    border-color: #f15bb5; 
-}
-
-.hover-bg-color-main:hover {
-    background-color: #9b5de5;
-}
-
-@keyframes shine {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
-
-@keyframes slide {
-    from { transform: translateX(-10px); }
-    to { transform: translateX(10px); }
-  }
-  
-.animate-shine {
-    background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.3));
-    background-size: 200% 100%;
-    animation: shine 3s infinite;
-}
-
-
-@media (max-width: 768px) {
-    .mobile-menu-button {
-      display: block;
-    }
-  
-    .md\\:flex.items-center.space-x-4 {
-      display: none;
-    }
-  
-   
-    .mobile-menu {
-      display: block; 
-    }
-  
-    .mobile-menu.hidden {
-      display: none;
-    }
-  }
-  
-  @media (min-width: 769px) {
-    .mobile-menu-button {
-      display: none;
-    }
-  
-
-    .md\\:flex.items-center.space-x-4 {
-      display: flex;
-    }
-  
-    
-    .mobile-menu {
-      display: none;
-    }
-  }
-
-  
