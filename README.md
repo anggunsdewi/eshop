@@ -706,14 +706,14 @@ Sucuri. (2023, Januari 18). What are cookies? A short guide to managing your onl
 
 ### Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
 Urutan prioritas pengambilan CSS selector ditentukan berdasarkan sistem yang disebut *specificity*. *Specificity* adalah aturan yang digunakan browser untuk menentukan deklarasi CSS mana yang paling relevan untuk elemen tertentu. Dilansir dari developer.mozilla.org, urutan prioritasnya adalah sebagai berikut:
-1. **Inline styles**
-    Deklarasi yang ditulis langsung dalam atribut `style` elemen memiliki prioritas tertinggi
-2. **ID Selectors**
-    Selector yang menggunakan ID (misal, `#example`) memiliki prioritas yang lebih tinggi dibandingkan class dan type selectors
-3. **Class, Attribute, dan Pseudo-class Selectors**
-    Mencakup class selectors (`.class`), attribute selectors (`[type="text"]`), dan pseudo-classes (`:hover`)
-4. **Type Selectors dan Pseudo-elements**
-    Selector yang menargetkan jenis elemen (misal, `div`, `p`) dan pseudo-elements (misal, `::before`)
+1. **Inline styles**:
+     Deklarasi yang ditulis langsung dalam atribut `style` elemen memiliki prioritas tertinggi
+2. **ID Selectors**:
+     Selector yang menggunakan ID (misal, `#example`) memiliki prioritas yang lebih tinggi dibandingkan class dan type selectors
+3. **Class, Attribute, dan Pseudo-class Selectors**:
+     Mencakup class selectors (`.class`), attribute selectors (`[type="text"]`), dan pseudo-classes (`:hover`)
+4. **Type Selectors dan Pseudo-elements**:
+     Selector yang menargetkan jenis elemen (misal, `div`, `p`) dan pseudo-elements (misal, `::before`)
 
 Jika dua aturan memiliki specificity yang sama, CSS yang terletak paling bawah dalam kode akan diaplikasikan. Selain itu, penggunaan `!important` dalam deklarasi CSS dapat mengatasi aturan specificity ini, memberikan prioritas tertinggi terlepas dari lokasi atau tipe selector.
 
@@ -733,9 +733,9 @@ a. Contoh aplikasi yang menerapkan *responsive design*: Shopee yang menyajikan t
 b. Contoh aplikasi yang belum menerapkan *responsive design*: SIAK-NG dan Pacil Web Service
 
 ### Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
-Margin: Ruang antara batas luar elemen dengan elemen lain di sekitarnya. Tidak berwarna dan transparan.
-Border: Garis yang mengelilingi padding dan konten. Bisa diatur ketebalannya, gayanya, dan warnanya.
-Padding: Ruang antara konten dalam elemen dengan batas elemennya. Padding meningkatkan area baca dan estetika tampilan.
+- Margin: Ruang antara batas luar elemen dengan elemen lain di sekitarnya. Tidak berwarna dan transparan.
+- Border: Garis yang mengelilingi padding dan konten. Bisa diatur ketebalannya, gayanya, dan warnanya.
+- Padding: Ruang antara konten dalam elemen dengan batas elemennya. Padding meningkatkan area baca dan estetika tampilan.
 Untuk mengimplementasikan ketiganya dalam CSS:
 ```
 .box {
@@ -749,25 +749,25 @@ Untuk mengimplementasikan ketiganya dalam CSS:
 Menurut dibimbing.com, Flexbox dan CSS Grid adalah dua teknologi modern untuk pengaturan layout di web yang memudahkan developer membuat tampilan yang responsif dan teratur. Keduanya menawarkan metode yang lebih intuitif dan fleksibel dibandingkan pendekatan tradisional.
 
 Flexbox (Flexible Box Layout)
-Konsep: Flexbox adalah sistem layout satu dimensi yang dirancang untuk mengatur elemen dalam sebuah kontainer agar bisa beradaptasi dengan ruang yang tersedia. Flexbox memudahkan penyesuaian elemen-elemen dalam sebuah baris atau kolom, tergantung pada arah yang ditentukan (row atau column).
-
+Konsep: 
+    Flexbox adalah sistem layout satu dimensi yang dirancang untuk mengatur elemen dalam sebuah kontainer agar bisa beradaptasi dengan ruang yang tersedia. Flexbox memudahkan penyesuaian elemen-elemen dalam sebuah baris atau kolom, tergantung pada arah yang ditentukan (row atau column).
 Kegunaan:
-Pengaturan Tengah: Mudah mengatur elemen di tengah secara vertikal atau horizontal.
-Konsistensi Distribusi Ruang: Memberikan distribusi ruang yang konsisten di antara elemen, seperti pada navigasi atau toolbar.
-Kemampuan Responsif: Membuat layout yang responsif dengan lebih sedikit kode dan penyesuaian.
+- Pengaturan Tengah: Mudah mengatur elemen di tengah secara vertikal atau horizontal.
+- Konsistensi Distribusi Ruang: Memberikan distribusi ruang yang konsisten di antara elemen, seperti pada navigasi atau toolbar.
+- Kemampuan Responsif: Membuat layout yang responsif dengan lebih sedikit kode dan penyesuaian.
 
 CSS Grid (Grid Layout)
-Konsep: CSS Grid adalah sistem layout dua dimensi yang memungkinkan developer untuk membuat layout yang kompleks dan multi-kolom dengan mudah. Grid memungkinkan penentuan area atau "grid" di mana elemen dapat ditempatkan dalam baris dan kolom.
-
+Konsep: 
+    CSS Grid adalah sistem layout dua dimensi yang memungkinkan developer untuk membuat layout yang kompleks dan multi-kolom dengan mudah. Grid memungkinkan penentuan area atau "grid" di mana elemen dapat ditempatkan dalam baris dan kolom.
 Kegunaan:
-Desain Kompleks: Mengatur elemen dalam format yang lebih kompleks dengan kontrol atas baris dan kolom.
-Layout Majalah atau Portal Berita: Ideal untuk layout halaman yang membutuhkan format yang ketat dan beragam, seperti portal berita atau majalah online.
-Kontrol Layout: Kemampuan untuk menentukan ukuran, posisi, dan tata letak elemen dengan presisi.
+- Desain Kompleks: Mengatur elemen dalam format yang lebih kompleks dengan kontrol atas baris dan kolom.
+- Layout Majalah atau Portal Berita: Ideal untuk layout halaman yang membutuhkan format yang ketat dan beragam, seperti portal berita atau majalah online.
+- Kontrol Layout: Kemampuan untuk menentukan ukuran, posisi, dan tata letak elemen dengan presisi.
 
-Perbandingan Penggunaan
-Kontrol: Flexbox lebih cocok untuk pengaturan elemen dalam satu dimensi (horizontal atau vertikal), sementara CSS Grid lebih unggul untuk pengaturan dua dimensi (baris dan kolom).
-Kompleksitas Layout: Flexbox lebih sederhana dan lebih cepat untuk dipelajari, sedangkan CSS Grid menawarkan lebih banyak fitur dan kontrol yang membuatnya ideal untuk layout yang lebih kompleks.
-Kemudahan Adaptasi: Flexbox cenderung lebih mudah untuk mengatur elemen dalam layout yang responsif, sementara Grid memberikan kekuatan lebih untuk desain yang lebih terstruktur dan detail.
+Perbandingan Penggunaan:
+- Kontrol: Flexbox lebih cocok untuk pengaturan elemen dalam satu dimensi (horizontal atau vertikal), sementara CSS Grid lebih unggul untuk pengaturan dua dimensi (baris dan kolom).
+- Kompleksitas Layout: Flexbox lebih sederhana dan lebih cepat untuk dipelajari, sedangkan CSS Grid menawarkan lebih banyak fitur dan kontrol yang membuatnya ideal untuk layout yang lebih kompleks.
+- Kemudahan Adaptasi: Flexbox cenderung lebih mudah untuk mengatur elemen dalam layout yang responsif, sementara Grid memberikan kekuatan lebih untuk desain yang lebih terstruktur dan detail.
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
 - Mengimport tailwind
@@ -789,9 +789,9 @@ Kemudahan Adaptasi: Flexbox cenderung lebih mudah untuk mengatur elemen dalam la
         return render(request, "edit_product.html", context)
     ```
 - Mendesign halaman `login.html`, `register.html`, `main.html`
-- Membuat berkas baru bernama `navbar.html`, `home.html`, `categories.html`, dan `cart.html` pada templates di direktori main dan mendesignnya
-- Menurunkan `navbar.html` pada `main.html`, `create_product.html`, `cart.html`, `home.html`, `categories.html`
-- Routing url dengan mengimpor fungsi baru pada views.py di urls.py yang ada pada direktori main
+- Membuat berkas baru bernama `navbar.html`, `home.html`, `categories.html`, `card_info.html` dan `cart.html` pada templates di direktori main dan mendesignnya
+- Inherit `navbar.html` pada `main.html`, `create_product.html`, `cart.html`, `home.html`, `categories.html`
+- Routing url dengan mengimpor fungsi baru pada `views.py` di `urls.py` yang ada pada direktori main
 - Membuat berkas `global.css` yang ada pada direktori `static/css`
 - Mengimpor gambar untuk ditaruh di dalam web dalam direktori `static/images`
 
