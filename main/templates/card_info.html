@@ -1,14 +1,17 @@
 {% load static %}
-<div class="product-card">
-    <img src="{% static "images/product.jpg" %}" alt="{{ product_entry.name }}" class="w-full h-48 object-cover" />
-    <h3 class="text-lg font-semibold text-color-main">{{ product_entry.name }}</h3>
-    <p class="text-md text-color-main">{{ product_entry.price }}</p>
-    <p class="text-sm text-color-main">{{ product_entry.description }}</p>
-    <p class="text-sm text-color-main">Stock: {{ product_entry.stock }}</p>
-    <p class="text-sm text-color-main">Rating: {{ product_entry.rating }}</p>
-    <div class="flex items-center space-x-2 mt-2">
-      <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-color-main hover-bg-color-main text-white font-bold py-2 px-4 rounded-lg">Edit</a>
-      <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg">Delete</a>
+<div class="product-card bg-white shadow-md rounded-lg overflow-hidden flex flex-col">
+  <div class="h-48 w-full relative">
+    <img src="{{ product_entry.image }}" alt="{{ product_entry.name }}" class="w-full h-full object-cover" loading="lazy" onerror="this.onerror=null; this.src='{% static 'image/placeholder.png' %}';"/>
+  </div>
+  <div class="p-4 flex flex-col flex-grow">
+    <h3 class="text-lg font-semibold text-color-main mb-2">{{ product_entry.name }}</h3>
+    <p class="text-md text-gray-700 mb-1">Price: ${{ product_entry.price }}</p>
+    <p class="text-sm text-gray-700 mb-1">Rating: {{ product_entry.rating }}/5</p>
+    <p class="text-sm text-gray-700 mb-1">Description: {{ product_entry.description }}</p>
+    <p class="text-sm text-gray-700 mb-4">Stock: {{ product_entry.stock }}</p>
+    <div class="mt-auto flex space-x-2">
+      <a href="{% url 'main:edit_product' product_entry.pk %}" class="bg-color-main hover:bg-color-main text-white font-bold py-2 px-4 rounded-lg flex-1 text-center">Edit</a>
+      <a href="{% url 'main:delete_product' product_entry.pk %}" class="bg-red-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded-lg flex-1 text-center">Delete</a>
     </div>
   </div>
-  
+</div>

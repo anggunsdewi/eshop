@@ -14,6 +14,7 @@ class Product(models.Model):
     description = models.TextField()
     stock = models.IntegerField()
     rating = models.FloatField()
+    image = models.CharField(max_length=300)
 
     def name_of_product(self):
         return self.name
