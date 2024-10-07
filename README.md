@@ -924,6 +924,14 @@ Secara keseluruhan, validasi di *backend* diperlukan untuk melindungi aplikasi d
 - Memodifikasi `main.html` untuk menampilkan data produk dengan fetch() API, membuat modal sebagai *form* untuk menambahkan produk, menambahkan data produk dengan menggunakan AJAX, dan membersihkan data dengan DOMPurify (kode lengkapnya tertera pada `main.html`)
 </details>
 
+## Referensi
+
+Django Software Foundation. (n.d.). Cross site request forgery protection. Retrieved from https://docs.djangoproject.com/en/4.2/ref/csrf/
+
+MDN Web Docs. (2023). *Using Fetch*. Retrieved from https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+Tanaya, J. M., dkk. (2024). *Turotial 5*. Retrieved from
+https://pbp-fasilkom-ui.github.io/ganjil-2025/docs/tutorial-5
 
 
 
