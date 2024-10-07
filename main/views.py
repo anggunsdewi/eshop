@@ -117,7 +117,7 @@ def edit_product(request, id):
     return render(request, "edit_product.html", context)
 
 def home(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(user=request.user)
     return render(request, 'home.html', {'products': products})
 
 
@@ -156,7 +156,7 @@ def add_product_entry_ajax(request):
     description = strip_tags(request.POST.get("description"))
     stock = request.POST.get("stock")
     rating = request.POST.get("rating")
-    image = request.POST.get("image")
+    image = strip_tags(request.POST.get("image"))
     user = request.user
 
     new_product = Product(
