@@ -804,6 +804,125 @@ MDN Web Docs. (n.d.). Specificity. Retrieved from https://developer.mozilla.org/
 
 WebFX. (n.d.). Why Is Responsive Design So Important?. Retrieved from https://www.webfx.com/web-design/learn/why-responsive-design-important/#:~:text=The%20ultimate%20goal%20of%20responsive,been%20optimized%20for%20different%20devices.
 
+</details>
+
+<details>
+    <summary><strong>📘Tugas 6 PBP</strong></summary>
+
+### Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+Dikutip dari pbp-fasilkom-ui.github.io, JavaScript merupakan bahasa pemrograman multi-paradigma tingkat tinggi lintas platform (*cross-platform high-level multi-paradigm programming language*). Sifat multi-paradigma membuat JavaScript mendukung konsep pemrograman berbasis obyek, pemrograman imperatif, dan pemrograman fungsional. Keuntungan menggunakan JavaScript dalam pengembangan web adalah manipulasi halaman web dapat dilakukan secara dinamis dan interaksi antara halaman web dengan pengguna dapat meningkat. Beberapa contoh yang dapat kita lakukan dengan menggunakan JavaScript antara lain menampilkan informasi berdasarkan waktu, mengenali jenis peramban pengguna, melakukan validasi form atau data, membuat cookies (bukan kue, namun HTTP cookies), mengganti styling dan CSS suatu element secara dinamis, dan lain sebagainya.
+
+### Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+Fungsi dari await dalam fetch():
+
+await memungkinkan JavaScript untuk "menunggu" hingga Promise yang dikembalikan oleh fetch() selesai (baik fulfilled atau rejected) sebelum melanjutkan eksekusi kode berikutnya. Ini membantu dalam menulis kode yang lebih terstruktur dan mudah dibaca karena menghindari penggunaan callback dan .then(), yang sering kali membuat kode menjadi nested dan lebih sulit untuk diikuti.
+Penggunaan await memastikan bahwa data dari respons fetch() telah siap digunakan sebelum kode di baris berikutnya dieksekusi.
+
+Apa yang terjadi jika tidak menggunakan await dengan fetch()?
+
+Jika await tidak digunakan, eksekusi kode tidak akan menunggu fetch() untuk selesai, yang berarti kode berikutnya akan terus berjalan tanpa menunggu data dari fetch() tersedia.
+
+Hal ini dapat menyebabkan masalah jika kode yang berikutnya bergantung pada data dari fetch(). Misalnya, jika kita mencoba untuk mengakses response dari fetch() sebelum operasinya selesai, kita dapat berakhir dengan Promise yang belum selesai, yang tidak berisi data response yang sesungguhnya.
+
+### Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+Dilansir dari pbp-fasilkom-ui.github.io, decorator  `csrf_exempt` membuat Django tidak perlu mengecek keberadaan `csrf_token` pada POST request yang dikirimkan pada suatu `view`. Kita perlu melakukan hal ini untuk mengurangi kompleksitas dalam mengelola token CSRF, atau ketika ada permintaan POST dari pihak ketiga yang membuat kita sulit menyertakan token CSRF, maupun se-*simple* tidak membutuhkan perlindungan CSRF karena tidak mengubah status pengguna
+
+### Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+Pembersihan data input pengguna di *backend*, meskipun sudah dilakukan di *frontend*, dilakukan untuk alasan keamanan dan integritas data. Beberapa alasan utama mengapa pembersihan data juga harus dilakukan di *backend*, yakni:
+
+1. Keamanan
+- Frontend bisa dimodifikasi oleh pengguna atau bisa ditembus oleh serangan. Seorang pengguna dengan niat buruk mungkin mengirimkan data yang berbahaya atau tidak valid yang bisa menghindari validasi frontend. Oleh karena itu, backend harus melakukan validasi dan sanitasi sendiri untuk mengurangi risiko injeksi kode, XSS (Cross-Site Scripting), SQL injection, dan serangan lain.
+
+2. Integritas Data
+- *Backend* bertanggung jawab atas integritas data yang masuk ke dalam sistem atau database. Validasi di *backend* memastikan bahwa semua data memenuhi standar dan aturan yang ditetapkan sebelum diproses atau disimpan, sehingga menjaga konsistensi dan keakuratan data di seluruh aplikasi.
+
+3. Dukungan untuk Beberapa Klien
+- Aplikasi mungkin memiliki lebih dari satu jenis klien yang berinteraksi dengan *backend*, seperti aplikasi web, mobile, dan lainnya. Jika pembersihan hanya dilakukan di sisi *frontend*, ada kemungkinan bahwa klien lain yang tidak memiliki pembersihan data yang sama akan mengirim data yang tidak valid atau berbahaya. Dengan melaksanakan validasi di *backend*, semua data dari berbagai klien diproses dengan cara yang konsisten.
+
+4. Keterpercayaan
+- Meskipun validasi di *frontend* dapat memperbaiki pengalaman pengguna dengan memberikan umpan balik yang cepat dan mengurangi beban server, memiliki validasi di *backend* sebagai lapisan keamanan tambahan berarti bahwa sistem lebih tahan terhadap kesalahan. Hal ini penting terutama ketika perubahan di *frontend* terjadi tanpa koordinasi dengan *backend*.
+
+Secara keseluruhan, validasi di *backend* diperlukan untuk melindungi aplikasi dan memastikan data yang masuk aman dan tepat, tak peduli kondisi di sisi klien.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+- Invalidasi untuk *user* yang belum terdaftar pada *database* pada fungsi `login_user` pada `views.py` dengan kode berikut:
+    ```
+    if form.is_valid():
+        user = form.get_user()
+        login(request, user)
+        response = HttpResponseRedirect(reverse("main:show_main"))
+        response.set_cookie('last_login', str(datetime.datetime.now()))
+        return response
+    else:
+        messages.error(request, "Invalid username or password. Please try again.")
+    ```
+- Mengimpor `csrf_exempt` dan `require_POST` dan menambahkan fungsi baru pada `views.py` dengan kode berikut:
+    ```
+    from django.views.decorators.csrf import csrf_exempt
+    from django.views.decorators.http import require_POST
+    ...
+    @csrf_exempt
+    @require_POST
+    def add_product_entry_ajax(request):
+        name = strip_tags(request.POST.get("name"))
+        price = request.POST.get("price")
+        description = strip_tags(request.POST.get("description"))
+        stock = request.POST.get("stock")
+        rating = request.POST.get("rating")
+        image = request.POST.get("image")
+        user = request.user
+
+        new_product = Product(
+            name=name, 
+            price=price, 
+            description=description, 
+            stock=stock, 
+            rating=rating,
+            image=image,
+            user=user
+        )
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    ```
+- Menambahkan routing untuk `add_product_entry_ajax` pada `urls.py` dengan kode berikut:
+    ```
+    from main.views import ..., add_mood_entry_ajax
+    urlpatterns = [
+        ...
+        path('create-product-entry-ajax' add_product_entry_ajax name='add_product_entry_ajax'),
+    ]
+    ```
+- Menghapus berkas `views.py` pada fungsi `show_main` bagian:
+    ```
+    product_entries = Product.objects.filter(user=request.user)
+    ...
+        'product_entries': product_entries,
+    ```
+- Menambahkan baris berikut pada bagian atas fungsi `show_json` dan `show_xml`
+    ```
+    data = Product.objects.filter(user=request.user)
+    ```
+- Menambahkan `strip_tags` untuk membersihkan data baru dengan mengimpor baris beirkut pada `views.py` dan `forms.py`:
+    ```
+    from django.utils.html import strip_tags
+    ...
+    def add_product_entry_ajax(request):
+        name = strip_tags(request.POST.get("name"))
+        price = request.POST.get("price")
+        description = strip_tags(request.POST.get("description"))
+    ```
+- Menambahkan fungsi pada `forms.py` yang berisi:
+    ```
+    def clean_product(self):
+        name = self.cleaned_data["name"]
+        return strip_tags(name)
+    def clean_desc(self):
+        description = self.cleaned_data["description"]
+        return strip_tags(description)
+    ```
+- Memodifikasi `main.html` untuk menampilkan data produk dengan fetch() API, membuat modal sebagai *form* untuk menambahkan produk, menambahkan data produk dengan menggunakan AJAX, dan membersihkan data dengan DOMPurify (kode lengkapnya tertera pada `main.html`)
+</details>
 
 
 
