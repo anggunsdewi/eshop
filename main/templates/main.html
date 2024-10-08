@@ -83,25 +83,11 @@
   function addProductEntry() {
     fetch("{% url 'main:add_product_entry_ajax' %}", {
       method: "POST",
-      headers: {
-        'X-CSRFToken': '{{ csrf_token }}'
-      },
       body: new FormData(document.querySelector('#productEntryForm')),
     })
-    .then(response => {
-      if (response.ok) {
-        refreshProductEntries();
+    .then(response => refreshProductEntries())
         document.getElementById("productEntryForm").reset(); 
-        hideModal();
-      } else {
-        console.error('Failed to add product entry.');
-        alert('Failed to add product entry. Please try again.');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again.');
-    });
+        document.querySelector("[data-modal-toggle='crudModal']").click();
 
     return false;
   }
