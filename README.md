@@ -922,7 +922,6 @@ Secara keseluruhan, validasi di *backend* diperlukan untuk melindungi aplikasi d
         return strip_tags(description)
     ```
 - Memodifikasi `main.html` untuk menampilkan data produk dengan fetch() API, membuat modal sebagai *form* untuk menambahkan produk, menambahkan data produk dengan menggunakan AJAX, dan membersihkan data dengan DOMPurify (kode lengkapnya tertera pada `main.html`)
-</details>
 
 ## Referensi
 
@@ -933,6 +932,7 @@ MDN Web Docs. (2023). *Using Fetch*. Retrieved from https://developer.mozilla.or
 Tanaya, J. M., dkk. (2024). *Turotial 5*. Retrieved from
 https://pbp-fasilkom-ui.github.io/ganjil-2025/docs/tutorial-5
 
+</details>
 
 
 
